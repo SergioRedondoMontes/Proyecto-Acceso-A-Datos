@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="entidades.Alumno" table="alumnos">
+		<id name="cod" type="int">
+			<column name="cod" />
+			<generator class="increment" />
+		</id>
+
+		<property name="dni" type="string">
+			<column name="dni" length="64" not-null="true" />
+		</property>
+		
+		<property name="nombreAlmuno" type="string">
+			<column name="nombre" length="64" not-null="true" />
+		</property>
+		
+		<property name="telefono" type="int">
+			<column name="telefono" not-null="true" />
+		</property>
+		
+		<property name="nacionalidad" type="string">
+			<column name="nacionalidad" length="64" not-null="true" />
+		</property>
+		
+		<many-to-one name="idTitu" column="titulacion"
+			not-null="true" />
+			
+	</class>
+
+</hibernate-mapping>
