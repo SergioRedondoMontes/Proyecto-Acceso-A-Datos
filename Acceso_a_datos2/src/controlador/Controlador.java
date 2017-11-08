@@ -3,15 +3,19 @@ package controlador;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import org.hibernate.type.TypeResolver;
+
 import accesoDatos.I_Acceso_Datos;
 import entidades.Alumno;
 import entidades.Titulacion;
+import interfazUsuario.VistaPrincipal;
 
 public class Controlador {
 
 	Scanner teclado;
 	SeleccionAccesoDatos selector;
 	I_Acceso_Datos accesoDatos;
+	VistaPrincipal vistaP;
 	
 	HashMap<String, Alumno> recogerAlumnos;//deposito
 	HashMap<String, Titulacion> recogerTitulaciones;//dispensadores
@@ -31,9 +35,15 @@ public class Controlador {
 		if (accesoDatos != null) {
 			recogerAlumnos = accesoDatos.obtenerAlumno();
 			recogerTitulaciones = accesoDatos.obtenerTitulacion();
-
+			System.out.println(recogerAlumnos.size() + "  " + recogerTitulaciones.size());
 			if((recogerAlumnos!=null) && (recogerTitulaciones!=null)){
-				
+		try {
+			
+			vistaP = new VistaPrincipal();
+			vistaP.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 				
 //				// Y creamos la maquina
 //				maquinaRefrescos = new Maquina(recogerAlumnos, recogerTitulaciones);
