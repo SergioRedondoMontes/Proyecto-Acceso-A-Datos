@@ -25,7 +25,7 @@ public class SeleccionAccesoDatos {
 		HashMap<String, String> nombreClases;
 		Object aux = null;
 		String nombreClase;
-		String rutaFichero = "Ficheros/config/" ;
+		String rutaFichero = "Ficheros/conf/" ;
 		
 		if(tipoClase.equals("accesoDatos")){
 			rutaFichero += "classNames.properties";

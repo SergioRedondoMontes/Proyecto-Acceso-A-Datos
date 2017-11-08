@@ -14,7 +14,7 @@ public class Controlador {
 	I_Acceso_Datos accesoDatos;
 	
 	HashMap<String, Alumno> recogerAlumnos;//deposito
-	HashMap<Integer, Titulacion> recogerTitulaciones;//dispensadores
+	HashMap<String, Titulacion> recogerTitulaciones;//dispensadores
 	
 
 	
