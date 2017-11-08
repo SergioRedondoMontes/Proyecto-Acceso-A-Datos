@@ -12,9 +12,9 @@ import maquinas.Maquina;
 public class Controlador {
 
 	Scanner teclado;
-	SeleccionTipoMaquina selector;
+	SeleccionAccesoDatos selector;
 	I_Acceso_Datos accesoDatos;
-	Generico interfaz;
+	
 	HashMap<Integer, Deposito> depositos;
 	HashMap<String, Dispensador> dispensadores;
 	Maquina maquinaRefrescos;
@@ -23,7 +23,7 @@ public class Controlador {
 
 	public Controlador(Scanner miScanner) {
 		teclado = miScanner;
-		selector = new SeleccionTipoMaquina(miScanner);
+		selector = new SeleccionAccesoDatos(miScanner);
 		// Seleccionamos el acceso a datos
 		accesoDatos = (I_Acceso_Datos) selector.elegirClase("accesoDatos");
 		// Una vez tenemos el acceso a datos, obtenemos dispensadores y

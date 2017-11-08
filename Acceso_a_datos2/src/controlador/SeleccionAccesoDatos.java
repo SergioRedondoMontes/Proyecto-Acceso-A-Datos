@@ -8,12 +8,12 @@ import java.util.Scanner;
 
 import auxiliares.LeeProperties;
 
-public class SeleccionTipoMaquina {
+public class SeleccionAccesoDatos {
 
 	Scanner teclado;
 	
 
-	public SeleccionTipoMaquina(Scanner teclado) {
+	public SeleccionAccesoDatos(Scanner teclado) {
 		this.teclado = teclado;
 	}
 
