@@ -32,6 +32,8 @@ public class Controlador {
 			recogerTitulaciones = accesoDatos.obtenerTitulacion();
 
 			if((recogerAlumnos!=null) && (recogerTitulaciones!=null)){
+				
+				
 //				// Y creamos la maquina
 //				maquinaRefrescos = new Maquina(recogerAlumnos, recogerTitulaciones);
 //				
