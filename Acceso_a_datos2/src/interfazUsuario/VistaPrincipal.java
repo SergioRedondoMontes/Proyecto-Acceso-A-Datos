@@ -8,8 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.HashMap;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -25,12 +24,13 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import accesoDatos.I_Acceso_Datos;
 import controlador.Controlador;
+import entidades.Alumno;
 
 
 public class VistaPrincipal extends JFrame {
@@ -580,10 +580,39 @@ public class VistaPrincipal extends JFrame {
 		this.txtNacionalidadMod = txtNacionalidadMod;
 	}
 
-	public void crearTabla() {
-		//controlador.crearTabla();
 
+	public void crearTabla(HashMap<String, Alumno> recogerAlumnos) {
+		
+
+		DefaultTableModel model = new DefaultTableModel() {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+
+		};
+
+		model.addColumn("Cod");
+		model.addColumn("Dni");
+		model.addColumn("Nombre");
+		model.addColumn("Apellido");
+		model.addColumn("Telefono");
+		model.addColumn("Nacionalidad");
+		model.addColumn("Titulacion");
+		for(String key:recogerAlumnos.keySet()){
+			model.addRow(new String[] { String.valueOf(recogerAlumnos.get(key).getCod()),
+					recogerAlumnos.get(key).getDni(),
+					recogerAlumnos.get(key).getNombre(),
+					recogerAlumnos.get(key).getApellido(),
+					String.valueOf(recogerAlumnos.get(key).getTelefono()),
+					recogerAlumnos.get(key).getNacionalidad(),
+					 String.valueOf(recogerAlumnos.get(key).getTitulacion())
+			});
+			
+			this.getTable().setModel(model);
+		}
 	}
+
 
 	public String getTxtTitulacionMod() {
 		return txtTitulacionMod.getText();
