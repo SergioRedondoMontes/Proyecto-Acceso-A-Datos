@@ -8,6 +8,7 @@ public class Alumno {
 	private int telefono;
 	private String nacionalidad;
 	private int titulacion;
+	private Titulacion titulacionAlumno;
 	
 	
 	public Alumno(){}
@@ -87,6 +88,14 @@ public class Alumno {
 
 	public void setNacionalidad(String nacionalidad) {
 		this.nacionalidad = nacionalidad;
+	}
+	
+	public Titulacion getTitulacionAlumno() {
+		return titulacionAlumno;
+	}
+
+	public void setTitulacionAlumno(Titulacion titulacion) {
+		this.titulacionAlumno = titulacion;
 	}
 
 }
