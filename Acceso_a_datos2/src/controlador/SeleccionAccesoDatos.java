@@ -65,7 +65,7 @@ public class SeleccionAccesoDatos {
 			// Guardamos en una variable el menu a escribir
 			String menu = "SELECCIONE " + tipoClase + " A UTILZAR \n";
 			menu += "En el fichero de configuracion se han encontrado " + nombreClases.size() + " clases disponibles\n";
-			menu += ".......................... \n" + ".  0- Salir \n" + ".  1- Aleatorio  \n";
+			menu += ".......................... \n" + ".  0- Salir \n";
 
 			int contador = 2; // 0 salir y 1 aleatorio
 			ArrayList<String> opciones = new ArrayList<String>();
@@ -103,7 +103,7 @@ public class SeleccionAccesoDatos {
 							 * El array con los nombres de las clases empieza en 0 
 							 * (0- salir y 1-aleatorio)
 							 */
-							nombreClase = opciones.get(op - 1);
+							nombreClase = opciones.get(op - 2);
 							System.out.println("Tipo " + tipoClase + " seleccionado: " + nombreClase);
 							aux = this.crearInstanciaClase(nombreClase, tipoClase);
 							salir = true;

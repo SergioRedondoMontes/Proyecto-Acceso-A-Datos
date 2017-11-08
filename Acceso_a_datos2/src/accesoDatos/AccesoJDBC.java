@@ -25,7 +25,7 @@ public class AccesoJDBC implements I_Acceso_Datos {
 		try {
 			
 
-			LeeProperties properties = new LeeProperties("Ficheros/config/accesoJDBC.properties");
+			LeeProperties properties = new LeeProperties("Ficheros/conf/accesoJDBC.properties");
 			datosConexion = properties.getHash();
 
 			driver = datosConexion.get("driver");
