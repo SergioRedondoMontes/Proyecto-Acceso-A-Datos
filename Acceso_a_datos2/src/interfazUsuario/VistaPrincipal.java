@@ -606,7 +606,7 @@ public class VistaPrincipal extends JFrame {
 					recogerAlumnos.get(key).getApellido(),
 					String.valueOf(recogerAlumnos.get(key).getTelefono()),
 					recogerAlumnos.get(key).getNacionalidad(),
-					 String.valueOf(recogerAlumnos.get(key).getTitulacion())
+					recogerAlumnos.get(key).getTitulacionAlumno().getNombre()
 			});
 			
 			this.getTable().setModel(model);

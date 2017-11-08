@@ -37,6 +37,7 @@ public class Controlador {
 			recogerTitulaciones = accesoDatos.obtenerTitulacion();
 			System.out.println(recogerAlumnos.size() + "  " + recogerTitulaciones.size());
 			if((recogerAlumnos!=null) && (recogerTitulaciones!=null)){
+				
 				this.setVisibleInterfazGrafica();
 				
 		}
@@ -48,10 +49,18 @@ public class Controlador {
 	private void setVisibleInterfazGrafica() {
 		try {
 			vistaP = new VistaPrincipal();
+			this.crearTabla();
 			vistaP.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 	}
+	private void crearTabla() {
+		if(!recogerAlumnos.isEmpty()){
+		vistaP.crearTabla(recogerAlumnos);
+		}else {
+			System.out.println("vacio");
+		}
+		}
 }
