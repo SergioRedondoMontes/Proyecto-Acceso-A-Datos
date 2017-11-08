@@ -37,46 +37,21 @@ public class Controlador {
 			recogerTitulaciones = accesoDatos.obtenerTitulacion();
 			System.out.println(recogerAlumnos.size() + "  " + recogerTitulaciones.size());
 			if((recogerAlumnos!=null) && (recogerTitulaciones!=null)){
+				this.setVisibleInterfazGrafica();
+				
+		}
+		
+	}
+
+	}
+
+	private void setVisibleInterfazGrafica() {
 		try {
-			
 			vistaP = new VistaPrincipal();
 			vistaP.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-				
-//				// Y creamos la maquina
-//				maquinaRefrescos = new Maquina(recogerAlumnos, recogerTitulaciones);
-//				
-//				if (maquinaRefrescos != null) {
-//					System.out.println("Acceso a datos funcionando");
-//					
-//					// Una vez tenemos la maquina creada, iniciamos interfaz
-//					
-//					interfaz = (Generico) selector.elegirClase("interfazUsuario");
-//					if (interfaz != null) {
-//						interfaz.inicializar(this, teclado);
-//						interfaz.ejecucionMaquinaRefrescos();
-//						this.mostrarMensaje(true);
-//					}	else{
-//						System.out.println("Finaliza la ejecucion");
-//						System.exit(1);
-//					}				
-//					
-//				}  else{
-//					System.out.println("No se ha podido inicializar la maquina\nFinaliza la ejecucion");
-//					System.exit(1);
-//				}
-//			} else{
-//				System.out.println("No se ha podido inicializar la maquina\nFinaliza la ejecucion");
-//				System.exit(1);
-//			}
-//		} else{
-//			System.out.println("No se ha podido inicializar la maquina\nFinaliza la ejecucion");
-//			System.exit(1);
-		}
 		
-	}
-
 	}
 }

@@ -1,2 +1,2 @@
 1,1damp,primero de damp
-1,2damp,segundo de damp
+2,2damp,segundo de damp

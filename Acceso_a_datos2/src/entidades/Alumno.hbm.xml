@@ -14,19 +14,23 @@
 			<column name="dni" length="64" not-null="true" />
 		</property>
 		
-		<property name="nombreAlmuno" type="string">
+		<property name="nombre" type="string">
 			<column name="nombre" length="64" not-null="true" />
 		</property>
 		
+		<property name="apellido" type="string">
+			<column name="apellido" length="64" not-null="true" />
+		</property>
+		
 		<property name="telefono" type="int">
-			<column name="telefono" not-null="true" />
+			<column name="telefono" length="9" not-null="true" />
 		</property>
 		
 		<property name="nacionalidad" type="string">
 			<column name="nacionalidad" length="64" not-null="true" />
 		</property>
 		
-		<many-to-one name="idTitu" column="titulacion"
+		<many-to-one name="titulacion" column="titulacion"
 			not-null="true" />
 			
 	</class>
