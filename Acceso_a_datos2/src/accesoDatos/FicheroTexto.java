@@ -17,7 +17,7 @@ public class FicheroTexto implements I_Acceso_Datos{
 	HashMap<String, Alumno> recogerAlumnos;
 	File fAlumnos;
 	int nAlumnos;
-	HashMap<Integer, Titulacion> recogerTitulaciones;
+	HashMap<String, Titulacion> recogerTitulaciones;
 	File fTitulaciones;
 	int nTitulaciones;
 	
@@ -150,9 +150,9 @@ public class FicheroTexto implements I_Acceso_Datos{
 	
 
 	@Override
-	public HashMap<Integer, Titulacion> obtenerTitulacion() {
+	public HashMap<String, Titulacion> obtenerTitulacion() {
 		boolean todoOK = true;
-		recogerTitulaciones = new HashMap<Integer, Titulacion>();
+		recogerTitulaciones = new HashMap<String, Titulacion>();
 		fTitulaciones = new File("Ficheros/datos/titulaciones.txt");
 		BufferedReader reader = null;
 		Integer clave;
@@ -167,7 +167,7 @@ public class FicheroTexto implements I_Acceso_Datos{
 				String[] datosaux = text.split(",");
 				clave = Integer.parseInt(datosaux[0]);
 				titulacion = new Titulacion(clave,datosaux[1],datosaux[2]);
-				recogerTitulaciones.put(clave,titulacion);
+				recogerTitulaciones.put(datosaux[1],titulacion);
 				
 
 			}
@@ -200,7 +200,7 @@ public class FicheroTexto implements I_Acceso_Datos{
 			nTitulaciones++;
 			pw.println(nTitulaciones + "," + titulacion.getNombre().toLowerCase() +","+titulacion.getDescripcion().toLowerCase());
 
-			recogerTitulaciones.put(nTitulaciones, titulacion);
+			recogerTitulaciones.put(titulacion.getNombre().toLowerCase(), titulacion);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

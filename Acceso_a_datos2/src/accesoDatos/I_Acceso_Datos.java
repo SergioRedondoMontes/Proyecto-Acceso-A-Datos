@@ -15,6 +15,6 @@ public interface I_Acceso_Datos {
 	public boolean actualizarAlumnos(Alumno alumno);
 	public boolean insertarTodosAlumnos(HashMap<String, Alumno> mapAlumno);
 	
-	public HashMap<Integer, Titulacion> obtenerTitulacion();
+	public HashMap<String, Titulacion> obtenerTitulacion();
 	public boolean insertarTitulacion(Titulacion titulacion);
 }

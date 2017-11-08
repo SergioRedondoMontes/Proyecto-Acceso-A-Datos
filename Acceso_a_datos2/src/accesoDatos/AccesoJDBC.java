@@ -17,7 +17,7 @@ public class AccesoJDBC implements I_Acceso_Datos {
 	private String driver, urlbd, user, password; // Datos de la conexion
 	private Connection conn1;
 	HashMap<String, Alumno> recogerAlumnos;
-	HashMap<Integer, Titulacion> recogerTitulaciones;
+	HashMap<String, Titulacion> recogerTitulaciones;
 
 	public AccesoJDBC() {
 		System.out.println("ACCESO A DATOS - Acceso JDBC");
@@ -210,9 +210,9 @@ public class AccesoJDBC implements I_Acceso_Datos {
 	}
 
 	@Override
-	public HashMap<Integer, Titulacion> obtenerTitulacion() {
-		recogerTitulaciones = new HashMap<Integer, Titulacion>();
-		int clave;
+	public HashMap<String, Titulacion> obtenerTitulacion() {
+		recogerTitulaciones = new HashMap<String, Titulacion>();
+		String clave;
 		String query = "SELECT * from titulaciones";
 		Statement st;
 		ResultSet rs;
@@ -222,8 +222,8 @@ public class AccesoJDBC implements I_Acceso_Datos {
 			rs = st.executeQuery(query);
 			Titulacion titulacion;
 			while (rs.next()) {
-				clave=rs.getInt("cod");//puede que cambie y l aclave sea un string con el nombre ya que no va a poder repetirse
-				titulacion = new Titulacion(clave,rs.getString("nombre"),rs.getString("descripcion"));
+				clave=rs.getString("nombre");//puede que cambie y l aclave sea un string con el nombre ya que no va a poder repetirse
+				titulacion = new Titulacion(rs.getInt("cod"),rs.getString("nombre"),rs.getString("descripcion"));
 				recogerTitulaciones.put(clave, titulacion);
 			}
 		} catch (Exception e) {
@@ -245,7 +245,7 @@ public class AccesoJDBC implements I_Acceso_Datos {
 			ps.setString(2, titulacion.getNombre().toLowerCase());
 			ps.setString(3, titulacion.getDescripcion().toLowerCase());
 			
-
+			recogerTitulaciones.put(titulacion.getNombre(), titulacion);
 			if (ps.executeUpdate() == 1) {
 
 				//JOptionPane.showMessageDialog(null, "Informaci�n almacenada satisfactoriamente");

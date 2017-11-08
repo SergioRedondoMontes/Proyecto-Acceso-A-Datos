@@ -15,7 +15,7 @@ public class AccesoHibernate implements I_Acceso_Datos{
 	
 	Session session;
 	HashMap<String, Alumno> recogerAlumnos;
-	HashMap<Integer, Titulacion> recogerTitulaciones;
+	HashMap<String, Titulacion> recogerTitulaciones;
 	
 public AccesoHibernate() {
 		
@@ -73,16 +73,16 @@ public AccesoHibernate() {
 	}
 
 	@Override
-	public HashMap<Integer, Titulacion> obtenerTitulacion() {
-		recogerTitulaciones = new HashMap<Integer, Titulacion>();
+	public HashMap<String, Titulacion> obtenerTitulacion() {
+		recogerTitulaciones = new HashMap<String, Titulacion>();
 		Query q= session.createQuery("select dep from Deposito dep");
         List results = q.list();
         
         Iterator titulacionesIterator= results.iterator();
 
         while (titulacionesIterator.hasNext()){
-        	Titulacion tituacion = (Titulacion)titulacionesIterator.next();
-        	recogerTitulaciones.put(tituacion.getCod(), tituacion);
+        	Titulacion titulacion = (Titulacion)titulacionesIterator.next();
+        	recogerTitulaciones.put(titulacion.getNombre(), titulacion);
         }
 
     	
