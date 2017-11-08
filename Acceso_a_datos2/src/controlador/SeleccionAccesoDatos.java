@@ -67,7 +67,7 @@ public class SeleccionAccesoDatos {
 			menu += "En el fichero de configuracion se han encontrado " + nombreClases.size() + " clases disponibles\n";
 			menu += ".......................... \n" + ".  0- Salir \n";
 
-			int contador = 2; // 0 salir y 1 aleatorio
+			int contador = 1; // 0 salir y 1 aleatorio
 			ArrayList<String> opciones = new ArrayList<String>();
 
 			for (HashMap.Entry<String, String> entry : nombreClases.entrySet()) {
@@ -103,7 +103,7 @@ public class SeleccionAccesoDatos {
 							 * El array con los nombres de las clases empieza en 0 
 							 * (0- salir y 1-aleatorio)
 							 */
-							nombreClase = opciones.get(op - 2);
+							nombreClase = opciones.get(op - 1);
 							System.out.println("Tipo " + tipoClase + " seleccionado: " + nombreClase);
 							aux = this.crearInstanciaClase(nombreClase, tipoClase);
 							salir = true;
