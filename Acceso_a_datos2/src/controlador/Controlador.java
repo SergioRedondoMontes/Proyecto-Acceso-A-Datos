@@ -17,6 +17,7 @@ public class Controlador {
 	HashMap<Integer, Titulacion> recogerTitulaciones;//dispensadores
 	
 
+	
 
 	String mensaje;
 
