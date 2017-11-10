@@ -25,7 +25,7 @@ public class FicheroTexto implements I_Acceso_Datos{
 	public HashMap<String, Alumno> obtenerAlumno() {
 		recogerAlumnos = new HashMap<String, Alumno>();
 		fAlumnos = new File("Ficheros/datos/alumnos.txt");
-		
+		obtenerTitulacion();
 		BufferedReader reader = null;
 
 		try {
@@ -39,10 +39,8 @@ public class FicheroTexto implements I_Acceso_Datos{
 				String[] datosaux = text.split(",");
 				clave = datosaux[1];
 				alumno = new Alumno(Integer.parseInt(datosaux[0]), clave, datosaux[2], datosaux[3],
-						Integer.parseInt(datosaux[4]), datosaux[5],Integer.parseInt(datosaux[6]));
+						Integer.parseInt(datosaux[4]), datosaux[5],comprobarTitulacion(Integer.parseInt(datosaux[6])));
 				recogerAlumnos.put(clave,alumno);
-				
-
 			}
 			nAlumnos = recogerAlumnos.size();
 		} catch (FileNotFoundException e) {
@@ -72,7 +70,7 @@ public class FicheroTexto implements I_Acceso_Datos{
 				pw.println((nAlumnos+1) + "," + alumno.getDni().toLowerCase() + "," + alumno.getNombre().toLowerCase() + ","
 						+ alumno.getApellido().toLowerCase() + "," + alumno.getTelefono() + ","
 						+ alumno.getNacionalidad().toLowerCase() + ","
-								+ alumno.getTitulacion());
+								+ alumno.getTitulacionAlumno().getCod());
 				nAlumnos++;
 				System.out.println(nAlumnos);
 			
@@ -218,6 +216,17 @@ public class FicheroTexto implements I_Acceso_Datos{
 			todoOK = false;
 		}
 		return todoOK;
+	}
+	
+	private Titulacion comprobarTitulacion(int titu){
+		Titulacion titulacion = new Titulacion();
+		for(String key:recogerTitulaciones.keySet()){
+			Titulacion value=recogerTitulaciones.get(key);
+			if (titu==value.getCod()) {
+				titulacion = value;
+			}
+		}
+		return titulacion;
 	}
 
 }

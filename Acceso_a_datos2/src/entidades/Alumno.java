@@ -7,13 +7,12 @@ public class Alumno {
 	private String apellido;
 	private int telefono;
 	private String nacionalidad;
-	private int titulacion;
 	private Titulacion titulacionAlumno;
 	
 	
 	public Alumno(){}
 
-	public Alumno(int cod, String dni, String nombre, String apellido, int telefono, String nacionalidad,int titulacion) {
+	public Alumno(int cod, String dni, String nombre, String apellido, int telefono, String nacionalidad,Titulacion titulacionAlumno) {
 
 		this.cod = cod;
 		this.dni = dni;
@@ -21,26 +20,19 @@ public class Alumno {
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.nacionalidad = nacionalidad;
-		this.titulacion = titulacion;
+		this.titulacionAlumno = titulacionAlumno;
 	}
 
-	public Alumno(String dni, String nombre, String apellido, int telefono, String nacionalidad, int titulacion) {
+	public Alumno(String dni, String nombre, String apellido, int telefono, String nacionalidad, Titulacion titulacionAlumno) {
 
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.nacionalidad = nacionalidad;
-		this.titulacion = titulacion;
+		this.titulacionAlumno = titulacionAlumno;
 	}
 
-	public int getTitulacion() {
-		return titulacion;
-	}
-
-	public void setTitulacion(int titulacion) {
-		this.titulacion = titulacion;
-	}
 
 	public int getCod() {
 		return cod;

@@ -31,6 +31,7 @@ import javax.swing.table.TableRowSorter;
 import accesoDatos.I_Acceso_Datos;
 import controlador.Controlador;
 import entidades.Alumno;
+import entidades.Titulacion;
 
 
 public class VistaPrincipal extends JFrame {
@@ -600,6 +601,12 @@ public class VistaPrincipal extends JFrame {
 		model.addColumn("Nacionalidad");
 		model.addColumn("Titulacion");
 		for(String key:recogerAlumnos.keySet()){
+			
+			
+			Alumno alumnoAux = recogerAlumnos.get(key);
+			Titulacion titulacionAux = alumnoAux.getTitulacionAlumno();
+			String nombreAux = titulacionAux.getNombre();
+			
 			model.addRow(new String[] { String.valueOf(recogerAlumnos.get(key).getCod()),
 					recogerAlumnos.get(key).getDni(),
 					recogerAlumnos.get(key).getNombre(),

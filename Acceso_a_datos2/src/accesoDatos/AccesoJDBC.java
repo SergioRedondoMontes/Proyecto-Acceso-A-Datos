@@ -66,18 +66,21 @@ public class AccesoJDBC implements I_Acceso_Datos {
 	@Override
 	public HashMap<String, Alumno> obtenerAlumno() {
 		recogerAlumnos = new HashMap<String, Alumno>();
+		obtenerTitulacion();
 		Alumno alumnoAux;
 		String clave;
-		String query = "SELECT * from depositos";
+		String query = "SELECT alumnos.cod, `dni`, alumnos.nombre, `apellido`, `telefono`, `nacionalidad`, titulaciones.nombre AS \"titulacionAlumno\" FROM `alumnos`  JOIN titulaciones on titulaciones.cod = alumnos.titulacion";
 		Statement st;
 		ResultSet rs;
 		try {
 			st = conn1.createStatement();
 			rs = st.executeQuery(query);
 			while (rs.next()) {
+				
 				clave = rs.getString("DNI");
 				alumnoAux = new Alumno(rs.getInt("cod"), clave, rs.getString("NOMBRE"), rs.getString("APELLIDO"),
-						rs.getInt("TELEFONO"), rs.getString("NACIONALIDAD"), rs.getInt("Titulacion"));
+						rs.getInt("TELEFONO"), rs.getString("NACIONALIDAD"), recogerTitulaciones.get(rs.getString("titulacionAlumno")));
+				
 				recogerAlumnos.put(clave, alumnoAux);
 			}
 
@@ -101,7 +104,7 @@ public class AccesoJDBC implements I_Acceso_Datos {
 			ps.setString(3, alumno.getApellido().toLowerCase());
 			ps.setInt(4, alumno.getTelefono());
 			ps.setString(5, alumno.getNacionalidad().toLowerCase());
-			ps.setInt(6, alumno.getTitulacion());
+			ps.setInt(6, alumno.getTitulacionAlumno().getCod());
 			if (ps.executeUpdate() == 1) {
 
 				// JOptionPane.showMessageDialog(null, "Informaci�n almacenada
@@ -188,7 +191,7 @@ public class AccesoJDBC implements I_Acceso_Datos {
 			ps.setString(2, alumno.getApellido().toLowerCase());
 			ps.setInt(3, alumno.getTelefono());
 			ps.setString(4, alumno.getNacionalidad().toLowerCase());
-			ps.setInt(5, alumno.getTitulacion());
+			ps.setInt(5, alumno.getTitulacionAlumno().getCod());
 
 			ps.executeUpdate();
 		} catch (SQLException e) {
