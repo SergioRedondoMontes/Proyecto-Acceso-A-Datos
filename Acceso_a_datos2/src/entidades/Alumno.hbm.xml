@@ -30,7 +30,7 @@
 			<column name="nacionalidad" length="64" not-null="true" />
 		</property>
 		
-		<many-to-one name="titulacion" column="titulacion"
+		<many-to-one name="titulacionAlumno" column="titulacion"
 			not-null="true" />
 			
 	</class>

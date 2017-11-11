@@ -28,7 +28,7 @@ public AccesoHibernate() {
 	@Override
 	public HashMap<String, Alumno> obtenerAlumno() {
 		recogerAlumnos = new HashMap<String, Alumno>();
-		Query q= session.createQuery("select alum from  alum");
+		Query q= session.createQuery("select alum from Alumno alum");
         List results = q.list();
         
         Iterator alumnosIterator= results.iterator();
@@ -44,38 +44,74 @@ public AccesoHibernate() {
 
 	@Override
 	public boolean insertarAlumno(Alumno alumno) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean todoOK = true;
+		try {
+			session.beginTransaction();
+			session.save(alumno);
+			recogerAlumnos.put(alumno.getDni(), alumno);
+		} catch (Exception e) {
+			todoOK = false;
+		}
+		
+		return todoOK;
 	}
 
 	@Override
 	public boolean borrarAlumno(String dni) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean todoOK = true;
+		try {
+			session.beginTransaction();
+			session.delete(dni);
+			recogerAlumnos.remove(dni);
+		} catch (Exception e) {
+			todoOK = false;
+		}
+		
+		return todoOK;
 	}
 
 	@Override
 	public boolean borrarTodoAlumnos() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean todoOK = true;
+		try {
+			String hql="delete from Alumno";
+			session.beginTransaction();
+			Query query=session.createQuery(hql);
+			recogerAlumnos.clear();
+		} catch (Exception e) {
+			todoOK = false;
+		}
+		
+		return todoOK;
 	}
 
 	@Override
 	public boolean actualizarAlumnos(Alumno alumno) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean todoOK = true;
+		try {
+			session.beginTransaction();
+			session.merge(alumno);
+			recogerAlumnos.put(alumno.getDni(), alumno);
+		} catch (Exception e) {
+			todoOK = false;
+		}
+		
+		return todoOK;
 	}
 
 	@Override
 	public boolean insertarTodosAlumnos(HashMap<String, Alumno> mapAlumno) {
 		boolean todoOK = true;
+		for(String key:mapAlumno.keySet()){
+			todoOK = this.insertarAlumno(mapAlumno.get(key));
+		}
 		return todoOK;
 	}
 
 	@Override
 	public HashMap<String, Titulacion> obtenerTitulacion() {
 		recogerTitulaciones = new HashMap<String, Titulacion>();
-		Query q= session.createQuery("select dep from Deposito dep");
+		Query q= session.createQuery("select dep from Titulacion dep");
         List results = q.list();
         
         Iterator titulacionesIterator= results.iterator();
@@ -91,8 +127,15 @@ public AccesoHibernate() {
 
 	@Override
 	public boolean insertarTitulacion(Titulacion titulacion) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean todoOK = true;
+		try {
+			session.beginTransaction();
+			session.save(titulacion);
+		} catch (Exception e) {
+			todoOK = false;
+		}
+		
+		return todoOK;
 	}
 
 }
