@@ -64,15 +64,15 @@ public class FicheroTexto implements I_Acceso_Datos{
 		PrintWriter pw = null;
 		
 		try {
-			fichero = new FileWriter("bbdd/alumnos.txt",true);
+			fichero = new FileWriter("Ficheros/datos/alumnos.txt",true);
 			pw = new PrintWriter(fichero);
-
-				pw.println((nAlumnos+1) + "," + alumno.getDni().toLowerCase() + "," + alumno.getNombre().toLowerCase() + ","
+			nAlumnos++;
+				pw.println((nAlumnos) + "," + alumno.getDni().toLowerCase() + "," + alumno.getNombre().toLowerCase() + ","
 						+ alumno.getApellido().toLowerCase() + "," + alumno.getTelefono() + ","
 						+ alumno.getNacionalidad().toLowerCase() + ","
 								+ alumno.getTitulacionAlumno().getCod());
-				nAlumnos++;
-				System.out.println(nAlumnos);
+				
+				System.out.println("nAlumnos"+nAlumnos);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -193,7 +193,7 @@ public class FicheroTexto implements I_Acceso_Datos{
 		FileWriter fichero = null;
 		PrintWriter pw = null;
 		try {
-			fichero = new FileWriter("bbdd/Titulaciones.txt",true);
+			fichero = new FileWriter("Ficheros/datos/Titulaciones.txt",true);
 			pw = new PrintWriter(fichero);
 			nTitulaciones++;
 			pw.println(nTitulaciones + "," + titulacion.getNombre().toLowerCase() +","+titulacion.getDescripcion().toLowerCase());

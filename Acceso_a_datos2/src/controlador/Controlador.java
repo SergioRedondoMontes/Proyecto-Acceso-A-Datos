@@ -48,6 +48,7 @@ public class Controlador {
 		try {
 			vistaP = new VistaPrincipal();
 			this.crearTabla();
+			vistaP.setControlador(this);
 			vistaP.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,19 +65,15 @@ public class Controlador {
 
 	public void nuevoAlumno() {
 		Alumno alumno;
-		Titulacion titulacion;
-		titulacion = new Titulacion(recogerTitulaciones.get(vistaP.getTxtTitulacion()).getNombre(),recogerTitulaciones.get(vistaP.getTxtTitulacion()).getDescripcion());
-		alumno = new Alumno(vistaP.getTxtDni(),vistaP.getTxtNombre(),vistaP.getTxtApellido(),Integer.parseInt(vistaP.getTxtTelefono()),vistaP.getTxtNacionalidad(),titulacion);
+		alumno = new Alumno(vistaP.getTxtDni(),vistaP.getTxtNombre(),vistaP.getTxtApellido(),Integer.parseInt(vistaP.getTxtTelefono()),vistaP.getTxtNacionalidad(),recogerTitulaciones.get(vistaP.getTxtTitulacion()));
 		
 		accesoDatos.insertarAlumno(alumno);
 	}
 
 	public void actualizarAlumno() {
 		Alumno alumno;
-		Titulacion titulacion;
-		titulacion = new Titulacion(recogerTitulaciones.get(vistaP.getTxtTitulacionMod()).getNombre(),recogerTitulaciones.get(vistaP.getTxtTitulacionMod()).getDescripcion());
 		String dato=String.valueOf(vistaP.getTabla().getValueAt(vistaP.getTabla().getSelectedRow(),1));
-		alumno = new Alumno(dato,vistaP.getTxtNombreMod(),vistaP.getTxtApellidoMod(),Integer.parseInt(vistaP.getTxtTelefonoMod()),vistaP.getTxtNacionalidadMod(),titulacion);
+		alumno = new Alumno(dato,vistaP.getTxtNombreMod(),vistaP.getTxtApellidoMod(),Integer.parseInt(vistaP.getTxtTelefonoMod()),vistaP.getTxtNacionalidadMod(),recogerTitulaciones.get(vistaP.getTxtTitulacionMod()));
 		accesoDatos.actualizarAlumnos(alumno);
 		
 	}
