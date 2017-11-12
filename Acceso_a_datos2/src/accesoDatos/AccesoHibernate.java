@@ -48,6 +48,7 @@ public AccesoHibernate() {
 		try {
 			session.beginTransaction();
 			session.save(alumno);
+			session.getTransaction().commit();
 			recogerAlumnos.put(alumno.getDni(), alumno);
 		} catch (Exception e) {
 			todoOK = false;
@@ -62,6 +63,7 @@ public AccesoHibernate() {
 		try {
 			session.beginTransaction();
 			session.delete(dni);
+			session.getTransaction().commit();
 			recogerAlumnos.remove(dni);
 		} catch (Exception e) {
 			todoOK = false;
@@ -78,6 +80,7 @@ public AccesoHibernate() {
 			session.beginTransaction();
 			Query query=session.createQuery(hql);
 			recogerAlumnos.clear();
+			session.getTransaction().commit();
 		} catch (Exception e) {
 			todoOK = false;
 		}
@@ -91,6 +94,7 @@ public AccesoHibernate() {
 		try {
 			session.beginTransaction();
 			session.merge(alumno);
+			session.getTransaction().commit();
 			recogerAlumnos.put(alumno.getDni(), alumno);
 		} catch (Exception e) {
 			todoOK = false;
@@ -131,6 +135,8 @@ public AccesoHibernate() {
 		try {
 			session.beginTransaction();
 			session.save(titulacion);
+			session.getTransaction().commit();
+			recogerTitulaciones.put(titulacion.getNombre(), titulacion);
 		} catch (Exception e) {
 			todoOK = false;
 		}
