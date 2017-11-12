@@ -113,7 +113,7 @@ public class VistaPrincipal extends JFrame {
 		btnAnadirAlumno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				//controlador.nuevoAlumno();
+				controlador.nuevoAlumno();
 			}
 		});
 
@@ -136,7 +136,7 @@ public class VistaPrincipal extends JFrame {
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				//controlador.actualizarAlumno();
+				controlador.actualizarAlumno();
 			}
 		});
 
@@ -146,7 +146,7 @@ public class VistaPrincipal extends JFrame {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				//controlador.eliminarUno();
+				controlador.eliminarUno();
 			}
 		});
 
@@ -184,7 +184,7 @@ public class VistaPrincipal extends JFrame {
 		btnEliminarTodos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				//controlador.eliminarTodos();
+				controlador.eliminarTodos();
 			}
 		});
 
@@ -285,7 +285,7 @@ public class VistaPrincipal extends JFrame {
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				//controlador.nuevoCurso();
+				controlador.nuevoCurso();
 			}
 		});
 		
