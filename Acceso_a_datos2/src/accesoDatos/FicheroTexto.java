@@ -65,7 +65,7 @@ public class FicheroTexto implements I_Acceso_Datos {
 
 		try {
 			if (recogerAlumnos.get(alumno.getDni()) == null) {
-
+				recogerAlumnos.put(alumno.getDni(), alumno);
 				fichero = new FileWriter("Ficheros/datos/alumnos.txt", true);
 				pw = new PrintWriter(fichero);
 				nAlumnos++;
@@ -100,6 +100,29 @@ public class FicheroTexto implements I_Acceso_Datos {
 	@Override
 	public boolean insertarTodosAlumnos(HashMap<String, Alumno> mapAlumno) {
 		boolean todoOK = true;
+		FileWriter fichero = null;
+		PrintWriter pw = null;
+		Alumno alumno;
+		try {
+			fichero = new FileWriter("Ficheros/datos/alumnos.txt");
+			pw = new PrintWriter(fichero);
+			for (String key : mapAlumno.keySet()) {
+				nAlumnos++;
+				pw.println((nAlumnos) + "," + mapAlumno.get(key).getDni().toLowerCase() + "," + mapAlumno.get(key).getNombre().toLowerCase()
+						+ "," + mapAlumno.get(key).getApellido().toLowerCase() + "," + mapAlumno.get(key).getTelefono() + ","
+						+ mapAlumno.get(key).getNacionalidad().toLowerCase() + "," + mapAlumno.get(key).getTitulacionAlumno().getCod());
+
+				
+			}
+			
+			pw.print("");
+			pw.close();
+			fichero.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		for (String key : mapAlumno.keySet()) {
 			todoOK = this.insertarAlumno(mapAlumno.get(key));
 		}
@@ -109,13 +132,16 @@ public class FicheroTexto implements I_Acceso_Datos {
 	@Override
 	public boolean actualizarAlumnos(Alumno alumno) {
 		boolean todoOK = true;
-		recogerAlumnos.put(alumno.getDni(), alumno);
+		
 		try {
-			insertarTodosAlumnos(recogerAlumnos);
+			System.out.println(alumno.getDni());
+			recogerAlumnos.put(alumno.getDni(), alumno);
+			todoOK = insertarTodosAlumnos(recogerAlumnos);
 		} catch (Exception e) {
+			
 			todoOK = false;
 		}
-
+		System.out.println(todoOK);
 		return todoOK;
 	}
 
@@ -123,8 +149,13 @@ public class FicheroTexto implements I_Acceso_Datos {
 	public boolean borrarAlumno(String dni) {
 		boolean todoOK = true;
 		try {
-			recogerAlumnos.remove(dni);
-			insertarTodosAlumnos(recogerAlumnos);
+			if (recogerAlumnos.remove(dni)!=null) {
+				insertarTodosAlumnos(recogerAlumnos);
+			}else{
+				todoOK = false;
+			}
+			
+			
 		} catch (Exception e) {
 			todoOK = false;
 		}

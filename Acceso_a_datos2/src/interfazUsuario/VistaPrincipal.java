@@ -620,9 +620,31 @@ public class VistaPrincipal extends JFrame {
 		}
 	}
 	
-//	public void actualizarTabla(HashMap<String, Alumno> recogerAlumnos){
-//		controlador.actualizarTabla(recogerAlumnos);
-//	}
+	public void actualizarTabla(HashMap<String, Alumno> recogerAlumnos){
+		DefaultTableModel model = new DefaultTableModel();
+		
+		model = (DefaultTableModel) this.getTable().getModel();
+		model.setRowCount(0);
+		
+		for(String key:recogerAlumnos.keySet()){
+			
+			
+			Alumno alumnoAux = recogerAlumnos.get(key);
+			Titulacion titulacionAux = alumnoAux.getTitulacionAlumno();
+			String nombreAux = titulacionAux.getNombre();
+			
+			model.addRow(new String[] { String.valueOf(recogerAlumnos.get(key).getCod()),
+					recogerAlumnos.get(key).getDni(),
+					recogerAlumnos.get(key).getNombre(),
+					recogerAlumnos.get(key).getApellido(),
+					String.valueOf(recogerAlumnos.get(key).getTelefono()),
+					recogerAlumnos.get(key).getNacionalidad(),
+					recogerAlumnos.get(key).getTitulacionAlumno().getNombre()
+			});
+			
+			this.getTable().setModel(model);
+		}
+	}
 
 	public String getTxtTitulacionMod() {
 		return txtTitulacionMod.getText();

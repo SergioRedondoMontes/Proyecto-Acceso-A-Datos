@@ -66,17 +66,17 @@ public class Controlador {
 		}
 	}
 	
-//	private void actualizarTabla() {
-//		recogerAlumnos = accesoDatos.obtenerAlumno();
-//		vistaP.actualizarTabla(recogerAlumnos);	
-//	}
+	private void actualizarTabla() {
+		recogerAlumnos = accesoDatos.obtenerAlumno();
+		vistaP.actualizarTabla(recogerAlumnos);	
+	}
 
 	public void nuevoAlumno() {
 		Alumno alumno;
 		alumno = new Alumno(vistaP.getTxtDni(),vistaP.getTxtNombre(),vistaP.getTxtApellido(),Integer.parseInt(vistaP.getTxtTelefono()),vistaP.getTxtNacionalidad(),recogerTitulaciones.get(vistaP.getTxtTitulacion()));
 		
 		accesoDatos.insertarAlumno(alumno);
-		crearTabla();
+		actualizarTabla();
 	}
 
 	public void actualizarAlumno() {
@@ -84,18 +84,18 @@ public class Controlador {
 		String dato=String.valueOf(vistaP.getTabla().getValueAt(vistaP.getTabla().getSelectedRow(),1));
 		alumno = new Alumno(dato,vistaP.getTxtNombreMod(),vistaP.getTxtApellidoMod(),Integer.parseInt(vistaP.getTxtTelefonoMod()),vistaP.getTxtNacionalidadMod(),recogerTitulaciones.get(vistaP.getTxtTitulacionMod()));
 		accesoDatos.actualizarAlumnos(alumno);
-		crearTabla();
+		actualizarTabla();
 	}
 
 	public void eliminarUno() {
 		String dni = (String) vistaP.getTabla().getValueAt(vistaP.getTabla().getSelectedRow(),1);
 		accesoDatos.borrarAlumno(dni);
-		crearTabla();
+		actualizarTabla();
 	}
 
 	public void eliminarTodos() {
 		accesoDatos.borrarTodoAlumnos();
-		crearTabla();
+		actualizarTabla();
 	}
 
 	public void nuevoCurso() {
