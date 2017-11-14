@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import auxiliares.HibernateUtil;
 import entidades.Alumno;
 import entidades.Titulacion;
+import interfazUsuario.VistaPrincipal;
 
 public class AccesoHibernate implements I_Acceso_Datos{
 	

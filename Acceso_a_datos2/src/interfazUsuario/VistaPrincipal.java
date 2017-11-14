@@ -619,7 +619,10 @@ public class VistaPrincipal extends JFrame {
 			this.getTable().setModel(model);
 		}
 	}
-
+	
+//	public void actualizarTabla(HashMap<String, Alumno> recogerAlumnos){
+//		controlador.actualizarTabla(recogerAlumnos);
+//	}
 
 	public String getTxtTitulacionMod() {
 		return txtTitulacionMod.getText();

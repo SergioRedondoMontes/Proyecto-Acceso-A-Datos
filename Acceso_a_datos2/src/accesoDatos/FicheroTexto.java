@@ -12,15 +12,15 @@ import java.util.HashMap;
 import entidades.Alumno;
 import entidades.Titulacion;
 
-public class FicheroTexto implements I_Acceso_Datos{
-	
+public class FicheroTexto implements I_Acceso_Datos {
+
 	HashMap<String, Alumno> recogerAlumnos;
 	File fAlumnos;
 	int nAlumnos;
 	HashMap<String, Titulacion> recogerTitulaciones;
 	File fTitulaciones;
 	int nTitulaciones;
-	
+
 	@Override
 	public HashMap<String, Alumno> obtenerAlumno() {
 		recogerAlumnos = new HashMap<String, Alumno>();
@@ -39,10 +39,10 @@ public class FicheroTexto implements I_Acceso_Datos{
 				String[] datosaux = text.split(",");
 				clave = datosaux[1];
 				alumno = new Alumno(Integer.parseInt(datosaux[0]), clave, datosaux[2], datosaux[3],
-						Integer.parseInt(datosaux[4]), datosaux[5],comprobarTitulacion(Integer.parseInt(datosaux[6])));
-				recogerAlumnos.put(clave,alumno);
+						Integer.parseInt(datosaux[4]), datosaux[5], comprobarTitulacion(Integer.parseInt(datosaux[6])));
+				recogerAlumnos.put(clave, alumno);
+				nAlumnos = Integer.parseInt(datosaux[0]);
 			}
-			nAlumnos = recogerAlumnos.size();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -59,25 +59,29 @@ public class FicheroTexto implements I_Acceso_Datos{
 	@Override
 	public boolean insertarAlumno(Alumno alumno) {
 		boolean todoOK = true;
-		
+
 		FileWriter fichero = null;
 		PrintWriter pw = null;
-		
+
 		try {
-			fichero = new FileWriter("Ficheros/datos/alumnos.txt",true);
-			pw = new PrintWriter(fichero);
-			nAlumnos++;
-				pw.println((nAlumnos) + "," + alumno.getDni().toLowerCase() + "," + alumno.getNombre().toLowerCase() + ","
-						+ alumno.getApellido().toLowerCase() + "," + alumno.getTelefono() + ","
-						+ alumno.getNacionalidad().toLowerCase() + ","
-								+ alumno.getTitulacionAlumno().getCod());
-				
-				System.out.println("nAlumnos"+nAlumnos);
-			
+			if (recogerAlumnos.get(alumno.getDni()) == null) {
+
+				fichero = new FileWriter("Ficheros/datos/alumnos.txt", true);
+				pw = new PrintWriter(fichero);
+				nAlumnos++;
+				pw.println((nAlumnos) + "," + alumno.getDni().toLowerCase() + "," + alumno.getNombre().toLowerCase()
+						+ "," + alumno.getApellido().toLowerCase() + "," + alumno.getTelefono() + ","
+						+ alumno.getNacionalidad().toLowerCase() + "," + alumno.getTitulacionAlumno().getCod());
+
+				System.out.println("nAlumnos" + nAlumnos);
+			}else{
+				todoOK = false;
+			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			todoOK=false;
+			todoOK = false;
 		}
 
 		try {
@@ -88,20 +92,20 @@ public class FicheroTexto implements I_Acceso_Datos{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			todoOK=false;
+			todoOK = false;
 		}
 		return todoOK;
 	}
-	
+
 	@Override
 	public boolean insertarTodosAlumnos(HashMap<String, Alumno> mapAlumno) {
 		boolean todoOK = true;
-		for(String key:mapAlumno.keySet()){
+		for (String key : mapAlumno.keySet()) {
 			todoOK = this.insertarAlumno(mapAlumno.get(key));
 		}
 		return todoOK;
 	}
-	
+
 	@Override
 	public boolean actualizarAlumnos(Alumno alumno) {
 		boolean todoOK = true;
@@ -111,7 +115,7 @@ public class FicheroTexto implements I_Acceso_Datos{
 		} catch (Exception e) {
 			todoOK = false;
 		}
-		
+
 		return todoOK;
 	}
 
@@ -124,7 +128,7 @@ public class FicheroTexto implements I_Acceso_Datos{
 		} catch (Exception e) {
 			todoOK = false;
 		}
-		
+
 		return todoOK;
 	}
 
@@ -140,12 +144,10 @@ public class FicheroTexto implements I_Acceso_Datos{
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			todoOK=false;
+			todoOK = false;
 		}
 		return todoOK;
 	}
-
-	
 
 	@Override
 	public HashMap<String, Titulacion> obtenerTitulacion() {
@@ -164,12 +166,11 @@ public class FicheroTexto implements I_Acceso_Datos{
 
 				String[] datosaux = text.split(",");
 				clave = Integer.parseInt(datosaux[0]);
-				titulacion = new Titulacion(clave,datosaux[1],datosaux[2]);
-				recogerTitulaciones.put(datosaux[1],titulacion);
-				
+				titulacion = new Titulacion(clave, datosaux[1], datosaux[2]);
+				recogerTitulaciones.put(datosaux[1], titulacion);
 
 			}
-			nTitulaciones=recogerTitulaciones.size();
+			nTitulaciones = recogerTitulaciones.size();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			todoOK = false;
@@ -193,10 +194,11 @@ public class FicheroTexto implements I_Acceso_Datos{
 		FileWriter fichero = null;
 		PrintWriter pw = null;
 		try {
-			fichero = new FileWriter("Ficheros/datos/Titulaciones.txt",true);
+			fichero = new FileWriter("Ficheros/datos/Titulaciones.txt", true);
 			pw = new PrintWriter(fichero);
 			nTitulaciones++;
-			pw.println(nTitulaciones + "," + titulacion.getNombre().toLowerCase() +","+titulacion.getDescripcion().toLowerCase());
+			pw.println(nTitulaciones + "," + titulacion.getNombre().toLowerCase() + ","
+					+ titulacion.getDescripcion().toLowerCase());
 
 			recogerTitulaciones.put(titulacion.getNombre().toLowerCase(), titulacion);
 		} catch (IOException e) {
@@ -217,12 +219,12 @@ public class FicheroTexto implements I_Acceso_Datos{
 		}
 		return todoOK;
 	}
-	
-	private Titulacion comprobarTitulacion(int titu){
+
+	private Titulacion comprobarTitulacion(int titu) {
 		Titulacion titulacion = new Titulacion();
-		for(String key:recogerTitulaciones.keySet()){
-			Titulacion value=recogerTitulaciones.get(key);
-			if (titu==value.getCod()) {
+		for (String key : recogerTitulaciones.keySet()) {
+			Titulacion value = recogerTitulaciones.get(key);
+			if (titu == value.getCod()) {
 				titulacion = value;
 			}
 		}
