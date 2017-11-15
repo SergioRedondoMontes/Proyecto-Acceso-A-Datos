@@ -59,7 +59,8 @@ public class Controlador {
 	}
 	private void crearTabla() {
 		recogerAlumnos = accesoDatos.obtenerAlumno();
-		if(!recogerAlumnos.isEmpty()){
+		recogerTitulaciones = accesoDatos.obtenerTitulacion();
+		if(!recogerAlumnos.isEmpty() || !recogerTitulaciones.isEmpty()){
 		vistaP.crearTabla(recogerAlumnos);
 		}else {
 			System.out.println("vacio");

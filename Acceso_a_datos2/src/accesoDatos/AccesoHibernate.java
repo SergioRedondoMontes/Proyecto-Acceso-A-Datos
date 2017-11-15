@@ -49,10 +49,14 @@ public AccesoHibernate() {
 	public boolean insertarAlumno(Alumno alumno) {
 		boolean todoOK = true;
 		try {
+			if (recogerAlumnos.get(alumno.getDni()) == null) {
 			session.beginTransaction();
 			session.save(alumno);
 			session.getTransaction().commit();
 			recogerAlumnos.put(alumno.getDni(), alumno);
+			}else{
+				todoOK = false;
+			}
 		} catch (Exception e) {
 			todoOK = false;
 		}
@@ -79,6 +83,7 @@ public AccesoHibernate() {
 	public boolean borrarTodoAlumnos() {
 		boolean todoOK = true;
 		
+		try{
 		session.beginTransaction();
 		
 		
@@ -89,7 +94,9 @@ public AccesoHibernate() {
 		
        
         session.getTransaction().commit();
-		
+		}catch (Exception e) {
+			todoOK=false;
+		}
 		return todoOK;
 	}
 

@@ -32,6 +32,8 @@ import accesoDatos.I_Acceso_Datos;
 import controlador.Controlador;
 import entidades.Alumno;
 import entidades.Titulacion;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 
 public class VistaPrincipal extends JFrame {
@@ -59,6 +61,7 @@ public class VistaPrincipal extends JFrame {
 	private JTextField txtTitulacion;
 	//private TextPrompt txtTitulacion;
 	private JTextField txtTitulacionMod;
+	private JComboBox cbTitulacion;
 
 	/**
 	 * Launch the application.
@@ -66,6 +69,9 @@ public class VistaPrincipal extends JFrame {
 
 	/**
 	 * Create the frame.
+	 */
+	/**
+	 * 
 	 */
 	public VistaPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -307,6 +313,9 @@ public class VistaPrincipal extends JFrame {
 		txtTitulacionMod = new JTextField();
 		txtTitulacionMod.setColumns(10);
 		
+		cbTitulacion = new JComboBox();
+		cbTitulacion.setModel(new DefaultComboBoxModel(new String[] {"1damp", "2damp"}));
+		
 		
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -350,20 +359,21 @@ public class VistaPrincipal extends JFrame {
 												.addComponent(button, Alignment.TRAILING)
 												.addComponent(btnNewButton, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
 											.addGap(1)
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 												.addComponent(btnSubirFicher)
-												.addComponent(btnExportar, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE))
+												.addComponent(btnExportar, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+												.addComponent(cbTitulacion, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 											.addGap(12)))
 									.addGroup(gl_contentPane.createSequentialGroup()
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 											.addComponent(lblAadirCurso, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 											.addComponent(txtNombreCurso, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))
 										.addPreferredGap(ComponentPlacement.RELATED))))
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGap(18)
 									.addComponent(lblAadirAlumno))
-								.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+								.addGroup(gl_contentPane.createSequentialGroup()
 									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 										.addComponent(phDni, 242, 254, Short.MAX_VALUE)
@@ -384,7 +394,7 @@ public class VistaPrincipal extends JFrame {
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 											.addComponent(btnEliminar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 											.addComponent(btnEliminarTodos, GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))))
-								.addComponent(txtTitulacion, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtTitulacion, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnAnadirAlumno, GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
@@ -409,33 +419,36 @@ public class VistaPrincipal extends JFrame {
 							.addComponent(txtTitulacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 194, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnAnadirAlumno)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblModificarDatos, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-							.addGap(9)
-							.addComponent(txtNombreMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnAnadirAlumno)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txtApellidoMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(5)
-							.addComponent(txtTelefonoMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(5)
-							.addComponent(txtNacionalidadMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txtTitulacionMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnModificar))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblAadirCurso, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txtNombreCurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txtDescripcionCurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(button_1)))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblModificarDatos, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+									.addGap(9)
+									.addComponent(txtNombreMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(txtApellidoMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGap(5)
+									.addComponent(txtTelefonoMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGap(5)
+									.addComponent(txtNacionalidadMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(txtTitulacionMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnModificar))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblAadirCurso, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(txtNombreCurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(txtDescripcionCurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(button_1))))
+						.addComponent(cbTitulacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -618,6 +631,7 @@ public class VistaPrincipal extends JFrame {
 			
 			this.getTable().setModel(model);
 		}
+		this.getTable().setModel(model);
 	}
 	
 	public void actualizarTabla(HashMap<String, Alumno> recogerAlumnos){
@@ -654,7 +668,11 @@ public class VistaPrincipal extends JFrame {
 		this.txtTitulacionMod = txtTitulacionMod;
 	}
 
-	
+	public String getCbTitulacion() {
+		return cbTitulacion.getSelectedItem().toString();
+	}
 
-	
+	public void setCbTitulacion(JComboBox cbTitulacion) {
+		this.cbTitulacion = cbTitulacion;
+	}
 }
