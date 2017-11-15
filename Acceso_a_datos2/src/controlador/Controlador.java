@@ -1,5 +1,6 @@
 package controlador;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -17,11 +18,9 @@ public class Controlador {
 	I_Acceso_Datos accesoDatos;
 	VistaPrincipal vistaP;
 	
-	HashMap<String, Alumno> recogerAlumnos;//deposito
-	HashMap<String, Titulacion> recogerTitulaciones;//dispensadores
-	
-
-	
+	HashMap<String, Alumno> recogerAlumnos;
+	HashMap<String, Titulacion> recogerTitulaciones;
+	ArrayList<String> cbTitulacion;
 
 	String mensaje;
 
@@ -30,8 +29,7 @@ public class Controlador {
 		selector = new SeleccionAccesoDatos(miScanner);
 		// Seleccionamos el acceso a datos
 		accesoDatos = (I_Acceso_Datos) selector.elegirClase("accesoDatos");
-		// Una vez tenemos el acceso a datos, obtenemos dispensadores y
-		// depositos
+		
 		if (accesoDatos != null) {
 			recogerAlumnos = accesoDatos.obtenerAlumno();
 			recogerTitulaciones = accesoDatos.obtenerTitulacion();
@@ -39,7 +37,7 @@ public class Controlador {
 			if((recogerAlumnos!=null) && (recogerTitulaciones!=null)){
 				
 				this.setVisibleInterfazGrafica();
-				
+				cargarNombreTitu();
 		}
 		
 	}
@@ -104,29 +102,19 @@ public class Controlador {
 		titulacion = new Titulacion(vistaP.getTxtNombreCurso(),vistaP.getTxtDescripcionCurso());
 		
 		accesoDatos.insertarTitulacion(titulacion);
+		cargarNombreTitu();
 		
 	}
-	
-//	public void actualizarTabla(HashMap<String, Alumno> recogerAlumnos){
-//		DefaultTableModel model = (DefaultTableModel) vistaP.getTablaInfo();
-//		model.setRowCount(0);
-//			for(String key:recogerAlumnos.keySet()){
-//			
-//			
-//			Alumno alumnoAux = recogerAlumnos.get(key);
-//			Titulacion titulacionAux = alumnoAux.getTitulacionAlumno();
-//			String nombreAux = titulacionAux.getNombre();
-//			
-//			model.addRow(new String[] { String.valueOf(recogerAlumnos.get(key).getCod()),
-//					recogerAlumnos.get(key).getDni(),
-//					recogerAlumnos.get(key).getNombre(),
-//					recogerAlumnos.get(key).getApellido(),
-//					String.valueOf(recogerAlumnos.get(key).getTelefono()),
-//					recogerAlumnos.get(key).getNacionalidad(),
-//					recogerAlumnos.get(key).getTitulacionAlumno().getNombre()
-//			});
-//			
-//			vistaP.getTable().setModel(model);
-//		}
-//	}
+	public void cargarNombreTitu(){
+		int aux = recogerTitulaciones.size();
+		cbTitulacion = new ArrayList<String>();
+		for(String key:recogerTitulaciones.keySet()){
+			if (aux>0) {
+				cbTitulacion.add(recogerTitulaciones.get(key).getNombre());
+				aux++;
+			}
+			
+		}
+		vistaP.setComboBoxTitu( cbTitulacion);
+	}
 }

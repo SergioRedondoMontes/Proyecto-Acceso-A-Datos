@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.GroupLayout;
@@ -58,10 +59,9 @@ public class VistaPrincipal extends JFrame {
 	private JTextField txtfExportar;
 	private JTextField txtNombreCurso;
 	private JTextField txtDescripcionCurso;
-	private JTextField txtTitulacion;
 	//private TextPrompt txtTitulacion;
 	private JTextField txtTitulacionMod;
-	private JComboBox cbTitulacion;
+	private JComboBox txtTitulacion;
 
 	/**
 	 * Launch the application.
@@ -295,26 +295,11 @@ public class VistaPrincipal extends JFrame {
 			}
 		});
 		
-	//ASI NO!
-//		textField = new JTextField();
-//		txtTitulacion = new TextPrompt("Titulacion", textField);
-//		txtTitulacion.setColumns(10);
-//		placeholderCurso.changeAlpha(0.50f);
-//		placeholderCurso.changeStyle(Font.ITALIC);
-		
-	
-		
-		txtTitulacion = new JTextField();
-		TextPrompt placeholderTitulacion = new TextPrompt("Titulacion", txtTitulacion);
-		txtTitulacion.setColumns(10);
-		placeholderTitulacion.changeAlpha(0.50f);
-		placeholderTitulacion.changeStyle(Font.ITALIC);
-		
 		txtTitulacionMod = new JTextField();
 		txtTitulacionMod.setColumns(10);
 		
-		cbTitulacion = new JComboBox();
-		cbTitulacion.setModel(new DefaultComboBoxModel(new String[] {"1damp", "2damp"}));
+		txtTitulacion = new JComboBox();
+		txtTitulacion.setModel(new DefaultComboBoxModel(new String[] {"1damp", "2damp"}));
 		
 		
 
@@ -361,8 +346,7 @@ public class VistaPrincipal extends JFrame {
 											.addGap(1)
 											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 												.addComponent(btnSubirFicher)
-												.addComponent(btnExportar, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-												.addComponent(cbTitulacion, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+												.addComponent(btnExportar, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
 											.addGap(12)))
 									.addGroup(gl_contentPane.createSequentialGroup()
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
@@ -394,8 +378,10 @@ public class VistaPrincipal extends JFrame {
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 											.addComponent(btnEliminar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 											.addComponent(btnEliminarTodos, GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))))
-								.addComponent(txtTitulacion, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnAnadirAlumno, GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))))
+								.addComponent(btnAnadirAlumno, GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(txtTitulacion, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -419,36 +405,33 @@ public class VistaPrincipal extends JFrame {
 							.addComponent(txtTitulacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 194, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnAnadirAlumno)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(btnAnadirAlumno)
+							.addComponent(lblModificarDatos, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+							.addGap(9)
+							.addComponent(txtNombreMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(txtApellidoMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(5)
+							.addComponent(txtTelefonoMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(5)
+							.addComponent(txtNacionalidadMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblModificarDatos, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-									.addGap(9)
-									.addComponent(txtNombreMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(txtApellidoMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addGap(5)
-									.addComponent(txtTelefonoMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addGap(5)
-									.addComponent(txtNacionalidadMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(txtTitulacionMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnModificar))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblAadirCurso, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(txtNombreCurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(txtDescripcionCurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(button_1))))
-						.addComponent(cbTitulacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(txtTitulacionMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnModificar))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblAadirCurso, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(txtNombreCurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(txtDescripcionCurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(button_1)))
 					.addPreferredGap(ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -542,7 +525,7 @@ public class VistaPrincipal extends JFrame {
 	}
 	
 	public String getTxtTitulacion() {
-		return txtTitulacion.getText();
+		return txtTitulacion.getSelectedItem().toString();
 	}
 
 
@@ -668,11 +651,14 @@ public class VistaPrincipal extends JFrame {
 		this.txtTitulacionMod = txtTitulacionMod;
 	}
 
-	public String getCbTitulacion() {
-		return cbTitulacion.getSelectedItem().toString();
+	public void setComboBoxTitu(ArrayList<String> cbTitulacion) {
+		// TODO Auto-generated method stub
+		String aux [] = new String[cbTitulacion.size()];
+		for (int i= 0;i< cbTitulacion.size();i++){
+			aux[i] = cbTitulacion.get(i);
+			
+		}
+		txtTitulacion.setModel(new DefaultComboBoxModel(aux));
 	}
 
-	public void setCbTitulacion(JComboBox cbTitulacion) {
-		this.cbTitulacion = cbTitulacion;
-	}
 }
