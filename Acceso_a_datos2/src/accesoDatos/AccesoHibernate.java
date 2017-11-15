@@ -3,6 +3,8 @@ package accesoDatos;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -63,7 +65,7 @@ public AccesoHibernate() {
 		boolean todoOK = true;
 		try {
 			session.beginTransaction();
-			session.delete(dni);
+			session.delete(recogerAlumnos.get(dni));
 			session.getTransaction().commit();
 			recogerAlumnos.remove(dni);
 		} catch (Exception e) {
@@ -76,15 +78,17 @@ public AccesoHibernate() {
 	@Override
 	public boolean borrarTodoAlumnos() {
 		boolean todoOK = true;
-		try {
-			String hql="delete from Alumno";
-			session.beginTransaction();
-			Query query=session.createQuery(hql);
-			recogerAlumnos.clear();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			todoOK = false;
+		
+		session.beginTransaction();
+		
+		
+		for(String key:recogerAlumnos.keySet()){
+			session.delete(recogerAlumnos.get(key));
 		}
+		recogerAlumnos.clear();
+		
+       
+        session.getTransaction().commit();
 		
 		return todoOK;
 	}
