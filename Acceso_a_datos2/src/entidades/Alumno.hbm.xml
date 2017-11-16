@@ -4,7 +4,7 @@
 
 <hibernate-mapping>
 
-	<class name="entidades.Alumno" table="alumnos">
+	<class name="modelo.Album" table="alumnos">
 		<id name="cod" type="int">
 			<column name="cod" />
 			<generator class="increment" />

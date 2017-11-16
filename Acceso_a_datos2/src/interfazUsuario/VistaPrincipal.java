@@ -55,13 +55,12 @@ public class VistaPrincipal extends JFrame {
 
 	private TableRowSorter trOrden;
 	private JTextField jtxtBuscarDni;
-	private JTextField txtImportar;
-	private JTextField txtfExportar;
 	private JTextField txtNombreCurso;
 	private JTextField txtDescripcionCurso;
 	//private TextPrompt txtTitulacion;
 	private JTextField txtTitulacionMod;
 	private JComboBox txtTitulacion;
+	private JComboBox cbExportar;
 
 	/**
 	 * Launch the application.
@@ -156,36 +155,6 @@ public class VistaPrincipal extends JFrame {
 			}
 		});
 
-		JButton btnNewButton = new JButton("Examinar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Creamos el objeto JFileChooser
-				JFileChooser fc = new JFileChooser();
-
-				// Indicamos lo que podemos seleccionar
-				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-
-				// Creamos el filtro
-
-				// Abrimos la ventana, guardamos la opcion seleccionada por el
-				// usuario
-				int seleccion = fc.showOpenDialog(contentPane);
-
-				// Si el usuario, pincha en aceptar
-				if (seleccion == JFileChooser.APPROVE_OPTION) {
-
-					// Seleccionamos el fichero
-					File fichero = fc.getSelectedFile();
-
-					// Ecribe la ruta del fichero seleccionado en el campo de
-					// texto
-					txtImportar.setText(fichero.getAbsolutePath());
-
-				}
-
-			}
-		});
-
 		JButton btnEliminarTodos = new JButton("Eliminar Todos");
 		btnEliminarTodos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -226,47 +195,7 @@ public class VistaPrincipal extends JFrame {
 			}
 		});
 
-		txtImportar = new JTextField();
-		txtImportar.setColumns(10);
-
-		JLabel lblImportarDesde = new JLabel("Importar desde:");
-
-		JButton button = new JButton("Examinar");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Creamos el objeto JFileChooser
-				JFileChooser fc = new JFileChooser();
-
-				// Indicamos lo que podemos seleccionar
-				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-
-				// Creamos el filtro
-
-				// Abrimos la ventana, guardamos la opcion seleccionada por el
-				// usuario
-				int seleccion = fc.showOpenDialog(contentPane);
-
-				// Si el usuario, pincha en aceptar
-				if (seleccion == JFileChooser.APPROVE_OPTION) {
-
-					// Seleccionamos el fichero
-					File fichero = fc.getSelectedFile();
-
-					// Ecribe la ruta del fichero seleccionado en el campo de
-					// texto
-					txtfExportar.setText(fichero.getAbsolutePath());
-
-				}
-
-			}
-		});
-
-		txtfExportar = new JTextField();
-		txtfExportar.setColumns(10);
-
 		JLabel lblExportarA = new JLabel("Exportar a:");
-		
-		JButton btnExportar = new JButton("Exportar");
 		
 		JLabel lblAadirCurso = new JLabel("Añadir curso");
 		lblAadirCurso.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -301,6 +230,8 @@ public class VistaPrincipal extends JFrame {
 		txtTitulacion = new JComboBox();
 		txtTitulacion.setModel(new DefaultComboBoxModel(new String[] {"1damp", "2damp"}));
 		
+		cbExportar = new JComboBox();
+		
 		
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -309,7 +240,7 @@ public class VistaPrincipal extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap(525, Short.MAX_VALUE)
+							.addContainerGap(501, Short.MAX_VALUE)
 							.addComponent(separator, GroupLayout.PREFERRED_SIZE, 241, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(23)
@@ -323,31 +254,20 @@ public class VistaPrincipal extends JFrame {
 									.addPreferredGap(ComponentPlacement.RELATED))
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+										.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
 										.addGroup(gl_contentPane.createSequentialGroup()
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-												.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-													.addGroup(gl_contentPane.createSequentialGroup()
-														.addComponent(lblImportarDesde, 0, 0, Short.MAX_VALUE)
-														.addGap(18)
-														.addComponent(txtImportar, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
-													.addGroup(gl_contentPane.createSequentialGroup()
-														.addComponent(lblBuscadorDni, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
-														.addGap(24)
-														.addComponent(jtxtBuscarDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_contentPane.createSequentialGroup()
+													.addComponent(lblBuscadorDni, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+													.addGap(24)
+													.addComponent(jtxtBuscarDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 												.addGroup(gl_contentPane.createSequentialGroup()
 													.addComponent(lblExportarA, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-													.addGap(18)
-													.addComponent(txtfExportar, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)))
-											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addComponent(button, Alignment.TRAILING)
-												.addComponent(btnNewButton, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
-											.addGap(1)
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(btnSubirFicher)
-												.addComponent(btnExportar, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
-											.addGap(12)))
+													.addPreferredGap(ComponentPlacement.UNRELATED)
+													.addComponent(cbExportar, 0, 226, Short.MAX_VALUE)
+													.addPreferredGap(ComponentPlacement.RELATED)))
+											.addComponent(btnSubirFicher)
+											.addGap(39)))
 									.addGroup(gl_contentPane.createSequentialGroup()
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 											.addComponent(lblAadirCurso, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -360,17 +280,17 @@ public class VistaPrincipal extends JFrame {
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(phDni, 242, 254, Short.MAX_VALUE)
-										.addComponent(txtNombre, 242, 254, Short.MAX_VALUE)
-										.addComponent(txtApellido, 242, 254, Short.MAX_VALUE)
-										.addComponent(phTelefono, 242, 254, Short.MAX_VALUE)
-										.addComponent(phNacionalidad, 242, 254, Short.MAX_VALUE)
-										.addComponent(lblModificarDatos, GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+										.addComponent(phDni, 242, 242, Short.MAX_VALUE)
+										.addComponent(txtNombre, 242, 242, Short.MAX_VALUE)
+										.addComponent(txtApellido, 242, 242, Short.MAX_VALUE)
+										.addComponent(phTelefono, 242, 242, Short.MAX_VALUE)
+										.addComponent(phNacionalidad, 242, 242, Short.MAX_VALUE)
+										.addComponent(lblModificarDatos, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
 										.addComponent(txtNombreMod, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)
 										.addComponent(txtApellidoMod, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)
 										.addComponent(txtTelefonoMod, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_contentPane.createSequentialGroup()
-											.addComponent(btnModificar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(btnModificar, GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
 											.addGap(151))
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 											.addComponent(txtNacionalidadMod, Alignment.LEADING)
@@ -378,10 +298,10 @@ public class VistaPrincipal extends JFrame {
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 											.addComponent(btnEliminar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 											.addComponent(btnEliminarTodos, GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))))
-								.addComponent(btnAnadirAlumno, GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+								.addComponent(btnAnadirAlumno, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(txtTitulacion, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+									.addComponent(txtTitulacion, 0, 242, Short.MAX_VALUE)))))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -432,15 +352,10 @@ public class VistaPrincipal extends JFrame {
 							.addComponent(txtDescripcionCurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(button_1)))
-					.addPreferredGap(ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnEliminarTodos)
-								.addComponent(txtImportar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnNewButton)
-								.addComponent(lblImportarDesde)
-								.addComponent(btnExportar))
+							.addComponent(btnEliminarTodos)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(jtxtBuscarDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -448,11 +363,10 @@ public class VistaPrincipal extends JFrame {
 							.addGap(12))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(button)
-								.addComponent(txtfExportar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblExportarA)
 								.addComponent(btnSubirFicher)
-								.addComponent(btnEliminar))
+								.addComponent(btnEliminar)
+								.addComponent(cbExportar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(79))))
 		);
 
@@ -660,5 +574,4 @@ public class VistaPrincipal extends JFrame {
 		}
 		txtTitulacion.setModel(new DefaultComboBoxModel(aux));
 	}
-
 }
