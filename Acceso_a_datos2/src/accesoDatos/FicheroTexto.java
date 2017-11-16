@@ -102,20 +102,18 @@ public class FicheroTexto implements I_Acceso_Datos {
 		boolean todoOK = true;
 		FileWriter fichero = null;
 		PrintWriter pw = null;
-		Alumno alumno;
 		try {
 			fichero = new FileWriter("Ficheros/datos/alumnos.txt");
 			pw = new PrintWriter(fichero);
+			pw.print("");
 			for (String key : mapAlumno.keySet()) {
-				nAlumnos++;
-				pw.println((nAlumnos) + "," + mapAlumno.get(key).getDni().toLowerCase() + "," + mapAlumno.get(key).getNombre().toLowerCase()
+				pw.println(mapAlumno.get(key).getCod() + "," + mapAlumno.get(key).getDni().toLowerCase() + "," + mapAlumno.get(key).getNombre().toLowerCase()
 						+ "," + mapAlumno.get(key).getApellido().toLowerCase() + "," + mapAlumno.get(key).getTelefono() + ","
 						+ mapAlumno.get(key).getNacionalidad().toLowerCase() + "," + mapAlumno.get(key).getTitulacionAlumno().getCod());
 
 				
 			}
 			
-			pw.print("");
 			pw.close();
 			fichero.close();
 		} catch (IOException e) {
@@ -228,10 +226,10 @@ public class FicheroTexto implements I_Acceso_Datos {
 			fichero = new FileWriter("Ficheros/datos/Titulaciones.txt", true);
 			pw = new PrintWriter(fichero);
 			nTitulaciones++;
-			pw.println(nTitulaciones + "," + titulacion.getNombre().toLowerCase() + ","
+			pw.println(nTitulaciones + "," + titulacion.getNombre().toUpperCase() + ","
 					+ titulacion.getDescripcion().toLowerCase());
 
-			recogerTitulaciones.put(titulacion.getNombre().toLowerCase(), titulacion);
+			recogerTitulaciones.put(titulacion.getNombre().toUpperCase(), titulacion);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -260,6 +258,39 @@ public class FicheroTexto implements I_Acceso_Datos {
 			}
 		}
 		return titulacion;
+	}
+
+	@Override
+	public boolean insertarTodosTitulaciones(HashMap<String, Titulacion> mapTitulacion) {
+		boolean todoOK = true;
+		FileWriter fichero = null;
+		PrintWriter pw = null;
+		Titulacion titulacion = null;
+		try {
+			fichero = new FileWriter("Ficheros/datos/Titulaciones.txt");
+			pw = new PrintWriter(fichero);
+			pw.print("");
+			for (String key : mapTitulacion.keySet()) { 
+			pw.println(mapTitulacion.get(key).getCod() + "," + mapTitulacion.get(key).getNombre().toUpperCase() + ","
+					+ mapTitulacion.get(key).getDescripcion().toLowerCase());
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			todoOK = false;
+		}
+
+		try {
+			if (fichero != null) {
+				pw.close();
+				fichero.close();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			todoOK = false;
+		}
+		return todoOK;
 	}
 
 }

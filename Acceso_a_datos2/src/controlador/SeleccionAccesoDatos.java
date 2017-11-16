@@ -11,7 +11,7 @@ import auxiliares.LeeProperties;
 public class SeleccionAccesoDatos {
 
 	Scanner teclado;
-	
+	ArrayList<String> arrClases;
 
 	public SeleccionAccesoDatos(Scanner teclado) {
 		this.teclado = teclado;
@@ -20,11 +20,16 @@ public class SeleccionAccesoDatos {
 	/*
 	 * METODO PARA SELECCIONAR TIPO DE ACCESO A DATOS O INTERFAZ
 	 */
+	
+	public ArrayList<String> claseExportar(){
+		return arrClases;
+	}
+	
 
 	public Object elegirClase(String tipoClase) {
 		HashMap<String, String> nombreClases;
 		Object aux = null;
-		String nombreClase;
+		String nombreClase = "";
 		String rutaFichero = "Ficheros/conf/" ;
 		
 		if(tipoClase.equals("accesoDatos")){
@@ -69,10 +74,11 @@ public class SeleccionAccesoDatos {
 
 			int contador = 1; // 0 salir y 1 aleatorio
 			ArrayList<String> opciones = new ArrayList<String>();
-
+			arrClases = new ArrayList<String>();
 			for (HashMap.Entry<String, String> entry : nombreClases.entrySet()) {
 				String key = (String) entry.getKey();
 				String value = (String) entry.getValue();
+				arrClases.add(value);
 				menu += ".  " + contador + "- " + key + "\n";
 				opciones.add(value);
 				contador++;
@@ -112,6 +118,7 @@ public class SeleccionAccesoDatos {
 						}
 						break;
 					}
+					arrClases.remove(nombreClase);
 
 				} catch (InputMismatchException e) {
 					System.out.println("Opcion invalida: marque un numero de 1 a " + max);
@@ -136,7 +143,7 @@ public class SeleccionAccesoDatos {
 	 */
 
 	@SuppressWarnings("rawtypes")
-	private Object crearInstanciaClase(String nombreClase, String paquete) {
+	public Object crearInstanciaClase(String nombreClase, String paquete) {
 		Object aux = null;
 
 		try {

@@ -61,6 +61,7 @@ public class VistaPrincipal extends JFrame {
 	private JTextField txtTitulacionMod;
 	private JComboBox txtTitulacion;
 	private JComboBox cbExportar;
+	private JButton btnSubirFicher;
 
 	/**
 	 * Launch the application.
@@ -187,11 +188,10 @@ public class VistaPrincipal extends JFrame {
 
 		JLabel lblBuscadorDni = new JLabel("Buscador DNI:");
 
-		JButton btnSubirFicher = new JButton("Exportar");
+		btnSubirFicher = new JButton("Exportar");
 		btnSubirFicher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//String tipoReceptor = controlador.tipoAcceso();
-				//controlador.tipoExportar(tipoReceptor);
+				controlador.claseExportar();
 			}
 		});
 
@@ -573,5 +573,13 @@ public class VistaPrincipal extends JFrame {
 			
 		}
 		txtTitulacion.setModel(new DefaultComboBoxModel(aux));
+	}
+
+	public String getCbExportar() {
+		return cbExportar.getSelectedItem().toString();
+	}
+
+	public void setCbExportar(String[] arrExpo) {
+		cbExportar.setModel(new DefaultComboBoxModel(arrExpo));
 	}
 }

@@ -17,4 +17,5 @@ public interface I_Acceso_Datos {
 	
 	public HashMap<String, Titulacion> obtenerTitulacion();
 	public boolean insertarTitulacion(Titulacion titulacion);
+	public boolean insertarTodosTitulaciones( HashMap<String, Titulacion> mapTitulacion); 
 }

@@ -134,7 +134,7 @@ public AccesoHibernate() {
 
         while (titulacionesIterator.hasNext()){
         	Titulacion titulacion = (Titulacion)titulacionesIterator.next();
-        	recogerTitulaciones.put(titulacion.getNombre(), titulacion);
+        	recogerTitulaciones.put(titulacion.getNombre().toUpperCase(), titulacion);
         }
 
     	
@@ -148,11 +148,20 @@ public AccesoHibernate() {
 			session.beginTransaction();
 			session.save(titulacion);
 			session.getTransaction().commit();
-			recogerTitulaciones.put(titulacion.getNombre(), titulacion);
+			recogerTitulaciones.put(titulacion.getNombre().toUpperCase(), titulacion);
 		} catch (Exception e) {
 			todoOK = false;
 		}
 		
+		return todoOK;
+	}
+
+	@Override
+	public boolean insertarTodosTitulaciones(HashMap<String, Titulacion> mapTitulacion) {
+		boolean todoOK = true;
+		for(String key:mapTitulacion.keySet()){
+			todoOK = this.insertarTitulacion(mapTitulacion.get(key));
+		}
 		return todoOK;
 	}
 

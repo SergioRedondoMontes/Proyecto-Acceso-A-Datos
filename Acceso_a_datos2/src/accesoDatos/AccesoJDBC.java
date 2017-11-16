@@ -245,7 +245,7 @@ public class AccesoJDBC implements I_Acceso_Datos {
 		try {
 			ps = conn1.prepareStatement(query);
 			ps.setInt(1, titulacion.getCod());
-			ps.setString(2, titulacion.getNombre().toLowerCase());
+			ps.setString(2, titulacion.getNombre().toUpperCase());
 			ps.setString(3, titulacion.getDescripcion().toLowerCase());
 			
 			recogerTitulaciones.put(titulacion.getNombre(), titulacion);
@@ -262,6 +262,15 @@ public class AccesoJDBC implements I_Acceso_Datos {
 			// TODO: handle exception
 			ex.printStackTrace();
 			todoOK = false;
+		}
+		return todoOK;
+	}
+
+	@Override
+	public boolean insertarTodosTitulaciones(HashMap<String, Titulacion> mapTitulacion) {
+		boolean todoOK = true;
+		for(String key:mapTitulacion.keySet()){
+			todoOK = this.insertarTitulacion(mapTitulacion.get(key));
 		}
 		return todoOK;
 	}
