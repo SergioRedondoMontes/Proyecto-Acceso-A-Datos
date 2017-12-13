@@ -137,9 +137,12 @@ public class Controlador {
 	public void claseExportar(){
 		accesoExportar = (I_Acceso_Datos) selector.crearInstanciaClase(vistaP.getCbExportar(), "accesoDatos");
 		if (accesoExportar!=null) {
-			System.out.println("claseExportar" + vistaP.getCbExportar());
-			accesoDatos.insertarTodosAlumnos(recogerAlumnos);
-			accesoDatos.insertarTodosTitulaciones(recogerTitulaciones);
+			System.out.println("claseExportar: " + vistaP.getCbExportar());
+			//accesoDatos.insertarTodosTitulaciones(recogerTitulaciones);
+			System.out.println(accesoDatos.insertarTodosTitulaciones(recogerTitulaciones));
+			//accesoDatos.insertarTodosAlumnos(recogerAlumnos);
+			System.out.println(accesoDatos.insertarTodosAlumnos(recogerAlumnos));
+			
 		}
 	}
 }
