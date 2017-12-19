@@ -34,6 +34,7 @@ public class Controlador {
 		if (accesoDatos != null) {
 			recogerAlumnos = accesoDatos.obtenerAlumno();
 			recogerTitulaciones = accesoDatos.obtenerTitulacion();
+			
 			System.out.println(recogerAlumnos.size() + "  " + recogerTitulaciones.size());
 			if ((recogerAlumnos != null) && (recogerTitulaciones != null)) {
 
