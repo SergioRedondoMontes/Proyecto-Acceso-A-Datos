@@ -30,7 +30,7 @@ if(isset($parameters)){
 		$descripcion = $titulacion["descripcion"];
 		
         $query  = "INSERT INTO `titulaciones`(`nombre`, `descripcion`)";
-        $query .= "VALUES ($nombre,$descripcion)";
+        $query .= "VALUES ('$nombre','$descripcion')";
 		
 		$result = $conn->query ( $query );
 		

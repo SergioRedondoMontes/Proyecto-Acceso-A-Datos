@@ -1,7 +1,7 @@
 <?php
 
 require 'bbdd.php'; // Incluimos fichero en la que está la coenxión con la BBDD
-require 'jsonEsperado.php';
+require 'jsonEsperadoBorrarAlumno.php';
 
 /*
  * Se mostrará siempre la información en formato json para que se pueda leer desde un html (via js)
@@ -24,24 +24,18 @@ if(isset($parameters)){
 	// Funcion declarada en jsonEsperado.php
 	if(JSONCorrectoAnnadir($mensajeRecibido)){
 
-		$alumno = $mensajeRecibido["alumnoAdd"]; 
+		$alumno = $mensajeRecibido["alumnoDel"]; 
         
         $dni = $alumno["dni"];
-		$nombre = $alumno["nombre"];
-		$apellido = $alumno["apellido"];
-        $telefono = $alumno["telefono"];
-        $nacionalidad = $alumno["nacionalidad"];
-        $titulacion = $alumno["titulacion"];
-		
-        $query  = "INSERT INTO `alumnos`(`dni`, `nombre`, `apellido`, `telefono`, `nacionalidad`, `titulacion`)";
-        $query .= "VALUES ($dni,'$nombre','$apellido',$telefono,'$nacionalidad',$titulacion)";
+
+        $query = "DELETE FROM alumnos WHERE alumnos.dni = '$dni'";
 		
 		$result = $conn->query ( $query );
 		
-		if (isset ( $result ) && $result) { // Si pasa por este if, la query está está bien y se ha insertado correctamente
+		if (isset ( $result ) && $result) { // Si pasa por este if, la query está está bien y se ha borrado correctamente
 			
 			$arrMensaje["estado"] = "ok";
-			$arrMensaje["mensaje"] = "Alumnos insertado correctamente";
+			$arrMensaje["mensaje"] = "Alumnos borrado correctamente";
 			
 		}else{ // Se ha producido algún error al ejecutar la query
 			
@@ -79,3 +73,6 @@ $conn->close ();
 die();
 
 ?>
+    
+
+    

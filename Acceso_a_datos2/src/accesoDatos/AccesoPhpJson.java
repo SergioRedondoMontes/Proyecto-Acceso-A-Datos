@@ -1,5 +1,8 @@
 package accesoDatos;
 
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 
 import org.json.simple.JSONArray;
@@ -13,7 +16,7 @@ import entidades.Titulacion;
 public class AccesoPhpJson implements I_Acceso_Datos{
 	
 	ApiRequests encargadoPeticiones;
-	private String SERVER_PATH, GET;
+	private String SERVER_PATH, GET, SET_insert_ALUMNO,SET_insert_TITULACION,SET_delete_ALUMNO,SET_deleteAll_ALUMNO;
 	HashMap<String, Alumno> recogerAlumnos;
 	HashMap<String, Titulacion> recogerTitulaciones;
 	
@@ -79,19 +82,150 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 
 	@Override
 	public boolean insertarAlumno(Alumno alumno) {
-		// TODO Auto-generated method stub
+		SET_insert_ALUMNO = "escribirAlumno.php";
+		JSONObject objAlumno = new JSONObject();
+		JSONObject objPeticion = new JSONObject();
+		try {
+			recogerAlumnos.put(alumno.getDni(), alumno);
+			objAlumno.put("dni", alumno.getDni());
+			objAlumno.put("nombre", alumno.getNombre());
+			objAlumno.put("apellido", alumno.getApellido());
+			objAlumno.put("telefono", alumno.getTelefono());
+			objAlumno.put("nacionalidad", alumno.getNacionalidad());
+			objAlumno.put("titulacion", alumno.getTitulacionAlumno().getCod());
+			
+			
+			objPeticion.put("peticion", "add");
+			objPeticion.put("alumnoAdd", objAlumno);
+			String json = objPeticion.toJSONString();
+			
+			System.out.println("Lanzamos peticion JSON para almacenar un jugador");
+
+			String url = SERVER_PATH + SET_insert_ALUMNO;
+
+			System.out.println("La url a la que lanzamos la peticiÛn es " + url);
+			System.out.println("El json que enviamos es: ");
+			System.out.println(json);
+			// System.exit(-1);
+
+			String response = encargadoPeticiones.postRequest(url, json);
+
+			System.out.println("El json que recibimos es: ");
+
+			System.out.println(response); // Traza para pruebas
+			//System.exit(-1);
+
+			// Parseamos la respuesta y la convertimos en un JSONObject
+
+			JSONObject respuesta = (JSONObject) JSONValue.parse(response.toString());
+
+			if (respuesta == null) { // Si hay alg˙n error de parseo (json
+										// incorrecto porque hay alg˙n caracter
+										// raro, etc.) la respuesta ser· null
+				System.out.println("El json recibido no es correcto. Finaliza la ejecuciÛn");
+				System.exit(-1);
+			} else { // El JSON recibido es correcto
+
+				// Sera "ok" si todo ha ido bien o "error" si hay alg˙n problema
+				String estado = (String) respuesta.get("estado");
+				if (estado.equals("ok")) {
+
+					System.out.println("Almacenado jugador enviado por JSON Remoto");
+
+				} else { // Hemos recibido el json pero en el estado se nos
+							// indica que ha habido alg˙n error
+
+					System.out.println("Acceso JSON REMOTO - Error al almacenar los datos");
+					System.out.println("Error: " + (String) respuesta.get("error"));
+					System.out.println("Consulta: " + (String) respuesta.get("query"));
+
+					System.exit(-1);
+
+				}
+			}
+		
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return false;
 	}
 
 	@Override
 	public boolean borrarAlumno(String dni) {
-		// TODO Auto-generated method stub
+		SET_delete_ALUMNO = "borrarAlumno.php";
+		JSONObject objAlumno = new JSONObject();
+		JSONObject objPeticion = new JSONObject();
+		try {
+			objAlumno.put("dni", dni);
+			
+			recogerAlumnos.remove(dni);
+			
+			objPeticion.put("peticion", "del");
+			objPeticion.put("alumnoDel", objAlumno);
+			String json = objPeticion.toJSONString();
+			
+			System.out.println("Lanzamos peticion JSON para almacenar un jugador");
+
+			String url = SERVER_PATH + SET_delete_ALUMNO;
+
+			System.out.println("La url a la que lanzamos la peticiÛn es " + url);
+			System.out.println("El json que enviamos es: ");
+			System.out.println(json);
+			// System.exit(-1);
+
+			String response = encargadoPeticiones.postRequest(url, json);
+
+			System.out.println("El json que recibimos es: ");
+
+			System.out.println(response); // Traza para pruebas
+			//System.exit(-1);
+
+			// Parseamos la respuesta y la convertimos en un JSONObject
+
+			JSONObject respuesta = (JSONObject) JSONValue.parse(response.toString());
+
+			if (respuesta == null) { // Si hay alg˙n error de parseo (json
+										// incorrecto porque hay alg˙n caracter
+										// raro, etc.) la respuesta ser· null
+				System.out.println("El json recibido no es correcto. Finaliza la ejecuciÛn");
+				System.exit(-1);
+			} else { // El JSON recibido es correcto
+
+				// Sera "ok" si todo ha ido bien o "error" si hay alg˙n problema
+				String estado = (String) respuesta.get("estado");
+				if (estado.equals("ok")) {
+
+					System.out.println("Almacenado jugador enviado por JSON Remoto");
+
+				} else { // Hemos recibido el json pero en el estado se nos
+							// indica que ha habido alg˙n error
+
+					System.out.println("Acceso JSON REMOTO - Error al almacenar los datos");
+					System.out.println("Error: " + (String) respuesta.get("error"));
+					System.out.println("Consulta: " + (String) respuesta.get("query"));
+
+					System.exit(-1);
+
+				}
+			}
+		
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return false;
 	}
 
 	@Override
 	public boolean borrarTodoAlumnos() {
-		// TODO Auto-generated method stub
+		SET_deleteAll_ALUMNO = "borrarTodoAlumno.php";
+		URL url = null;
+        try {
+            url = new URL(SERVER_PATH + SET_deleteAll_ALUMNO);
+            URLConnection con = url.openConnection();
+             con.getInputStream(); // retornamos la entrada de la conexion abierta con el PHP
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		return false;
 	}
 
@@ -143,7 +277,69 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 
 	@Override
 	public boolean insertarTitulacion(Titulacion titulacion) {
-		// TODO Auto-generated method stub
+		SET_insert_TITULACION = "escribirTitulacion.php";
+		JSONObject objTitulacion = new JSONObject();
+		JSONObject objPeticion = new JSONObject();
+		try {
+			recogerTitulaciones.put(titulacion.getNombre(), titulacion);
+			
+
+			objTitulacion.put("nombre", titulacion.getNombre());
+			objTitulacion.put("descripcion", titulacion.getDescripcion());
+			
+			
+			
+			objPeticion.put("peticion", "add");
+			objPeticion.put("titulacionAdd", objTitulacion);
+			String json = objPeticion.toJSONString();
+			
+			System.out.println("Lanzamos peticion JSON para almacenar un jugador");
+
+			String url = SERVER_PATH + SET_insert_TITULACION;
+
+			System.out.println("La url a la que lanzamos la peticiÛn es " + url);
+			System.out.println("El json que enviamos es: ");
+			System.out.println(json);
+			// System.exit(-1);
+
+			String response = encargadoPeticiones.postRequest(url, json);
+
+			System.out.println("El json que recibimos es: ");
+
+			System.out.println(response); // Traza para pruebas
+			//System.exit(-1);
+
+			// Parseamos la respuesta y la convertimos en un JSONObject
+
+			JSONObject respuesta = (JSONObject) JSONValue.parse(response.toString());
+
+			if (respuesta == null) { // Si hay alg˙n error de parseo (json
+										// incorrecto porque hay alg˙n caracter
+										// raro, etc.) la respuesta ser· null
+				System.out.println("El json recibido no es correcto. Finaliza la ejecuciÛn");
+				System.exit(-1);
+			} else { // El JSON recibido es correcto
+
+				// Sera "ok" si todo ha ido bien o "error" si hay alg˙n problema
+				String estado = (String) respuesta.get("estado");
+				if (estado.equals("ok")) {
+
+					System.out.println("Almacenado jugador enviado por JSON Remoto");
+
+				} else { // Hemos recibido el json pero en el estado se nos
+							// indica que ha habido alg˙n error
+
+					System.out.println("Acceso JSON REMOTO - Error al almacenar los datos");
+					System.out.println("Error: " + (String) respuesta.get("error"));
+					System.out.println("Consulta: " + (String) respuesta.get("query"));
+
+					System.exit(-1);
+
+				}
+			}
+		}catch (Exception e) {
+				// TODO: handle exception
+			}
 		return false;
 	}
 
