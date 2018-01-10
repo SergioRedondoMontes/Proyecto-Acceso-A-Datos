@@ -231,7 +231,71 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 
 	@Override
 	public boolean actualizarAlumnos(Alumno alumno) {
-		// TODO Auto-generated method stub
+		SET_insert_ALUMNO = "actualizarAlumno.php";
+		JSONObject objAlumno = new JSONObject();
+		JSONObject objPeticion = new JSONObject();
+		try {
+			recogerAlumnos.put(alumno.getDni(), alumno);
+			objAlumno.put("dni", alumno.getDni());
+			objAlumno.put("nombre", alumno.getNombre());
+			objAlumno.put("apellido", alumno.getApellido());
+			objAlumno.put("telefono", alumno.getTelefono());
+			objAlumno.put("nacionalidad", alumno.getNacionalidad());
+			objAlumno.put("titulacion", alumno.getTitulacionAlumno().getCod());
+			
+			
+			objPeticion.put("peticion", "add");
+			objPeticion.put("alumnoUpd", objAlumno);
+			String json = objPeticion.toJSONString();
+			
+			System.out.println("Lanzamos peticion JSON para almacenar un jugador");
+
+			String url = SERVER_PATH + SET_insert_ALUMNO;
+
+			System.out.println("La url a la que lanzamos la peticiÛn es " + url);
+			System.out.println("El json que enviamos es: ");
+			System.out.println(json);
+			// System.exit(-1);
+
+			String response = encargadoPeticiones.postRequest(url, json);
+
+			System.out.println("El json que recibimos es: ");
+
+			System.out.println(response); // Traza para pruebas
+			//System.exit(-1);
+
+			// Parseamos la respuesta y la convertimos en un JSONObject
+
+			JSONObject respuesta = (JSONObject) JSONValue.parse(response.toString());
+
+			if (respuesta == null) { // Si hay alg˙n error de parseo (json
+										// incorrecto porque hay alg˙n caracter
+										// raro, etc.) la respuesta ser· null
+				System.out.println("El json recibido no es correcto. Finaliza la ejecuciÛn");
+				System.exit(-1);
+			} else { // El JSON recibido es correcto
+
+				// Sera "ok" si todo ha ido bien o "error" si hay alg˙n problema
+				String estado = (String) respuesta.get("estado");
+				if (estado.equals("ok")) {
+
+					System.out.println("Almacenado jugador enviado por JSON Remoto");
+
+				} else { // Hemos recibido el json pero en el estado se nos
+							// indica que ha habido alg˙n error
+
+					System.out.println("Acceso JSON REMOTO - Error al almacenar los datos");
+					System.out.println("Error: " + (String) respuesta.get("error"));
+					System.out.println("Consulta: " + (String) respuesta.get("query"));
+
+					System.exit(-1);
+
+				}
+			}
+		
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return false;
 	}
 
