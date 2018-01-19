@@ -21,6 +21,8 @@ public class AccesoJDBC implements I_Acceso_Datos {
 
 	public AccesoJDBC() {
 		System.out.println("ACCESO A DATOS - Acceso JDBC");
+		recogerAlumnos = new HashMap<String, Alumno>();
+		recogerTitulaciones = new HashMap<String, Titulacion>();
 		HashMap<String, String> datosConexion;
 		try {
 			
@@ -65,7 +67,7 @@ public class AccesoJDBC implements I_Acceso_Datos {
 
 	@Override
 	public HashMap<String, Alumno> obtenerAlumno() {
-		recogerAlumnos = new HashMap<String, Alumno>();
+		//recogerAlumnos = new HashMap<String, Alumno>();
 		obtenerTitulacion();
 		Alumno alumnoAux;
 		String clave;
@@ -214,7 +216,7 @@ public class AccesoJDBC implements I_Acceso_Datos {
 
 	@Override
 	public HashMap<String, Titulacion> obtenerTitulacion() {
-		recogerTitulaciones = new HashMap<String, Titulacion>();
+		//recogerTitulaciones = new HashMap<String, Titulacion>();
 		String clave;
 		String query = "SELECT * from titulaciones";
 		Statement st;
@@ -248,7 +250,11 @@ public class AccesoJDBC implements I_Acceso_Datos {
 			ps.setString(2, titulacion.getNombre().toUpperCase());
 			ps.setString(3, titulacion.getDescripcion().toLowerCase());
 			
+			System.out.println("Nombre: "+ titulacion.getNombre()+"cod: "+titulacion.getCod());
+			
+			System.out.println("length titulaciones: " + recogerTitulaciones.size());
 			recogerTitulaciones.put(titulacion.getNombre(), titulacion);
+			
 			if (ps.executeUpdate() == 1) {
 
 				//JOptionPane.showMessageDialog(null, "Informaci�n almacenada satisfactoriamente");

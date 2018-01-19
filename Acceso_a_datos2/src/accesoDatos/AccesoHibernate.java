@@ -14,34 +14,36 @@ import entidades.Alumno;
 import entidades.Titulacion;
 import interfazUsuario.VistaPrincipal;
 
-public class AccesoHibernate implements I_Acceso_Datos{
-	
+public class AccesoHibernate implements I_Acceso_Datos {
+
 	Session session;
 	HashMap<String, Alumno> recogerAlumnos;
 	HashMap<String, Titulacion> recogerTitulaciones;
-	
-public AccesoHibernate() {
-		
-		HibernateUtil util = new HibernateUtil(); 
-		
+
+	public AccesoHibernate() {
+
+		recogerAlumnos = new HashMap<String, Alumno>();
+		recogerTitulaciones = new HashMap<String, Titulacion>();
+
+		HibernateUtil util = new HibernateUtil();
+
 		session = util.getSessionFactory().openSession();
-		
+
 	}
 
 	@Override
 	public HashMap<String, Alumno> obtenerAlumno() {
-		recogerAlumnos = new HashMap<String, Alumno>();
-		Query q= session.createQuery("select alum from Alumno alum");
-        List results = q.list();
-        
-        Iterator alumnosIterator= results.iterator();
+		//recogerAlumnos = new HashMap<String, Alumno>();
+		Query q = session.createQuery("select alum from Alumno alum");
+		List results = q.list();
 
-        while (alumnosIterator.hasNext()){
-        	Alumno alumno = (Alumno)alumnosIterator.next();
-        	recogerAlumnos.put(alumno.getDni(), alumno);
-        }
+		Iterator alumnosIterator = results.iterator();
 
-    	
+		while (alumnosIterator.hasNext()) {
+			Alumno alumno = (Alumno) alumnosIterator.next();
+			recogerAlumnos.put(alumno.getDni(), alumno);
+		}
+
 		return recogerAlumnos;
 	}
 
@@ -50,17 +52,17 @@ public AccesoHibernate() {
 		boolean todoOK = true;
 		try {
 			if (recogerAlumnos.get(alumno.getDni()) == null) {
-			session.beginTransaction();
-			session.save(alumno);
-			session.getTransaction().commit();
-			recogerAlumnos.put(alumno.getDni(), alumno);
-			}else{
+				session.beginTransaction();
+				session.save(alumno);
+				session.getTransaction().commit();
+				recogerAlumnos.put(alumno.getDni(), alumno);
+			} else {
 				todoOK = false;
 			}
 		} catch (Exception e) {
 			todoOK = false;
 		}
-		
+
 		return todoOK;
 	}
 
@@ -75,27 +77,25 @@ public AccesoHibernate() {
 		} catch (Exception e) {
 			todoOK = false;
 		}
-		
+
 		return todoOK;
 	}
 
 	@Override
 	public boolean borrarTodoAlumnos() {
 		boolean todoOK = true;
-		
-		try{
-		session.beginTransaction();
-		
-		
-		for(String key:recogerAlumnos.keySet()){
-			session.delete(recogerAlumnos.get(key));
-		}
-		recogerAlumnos.clear();
-		
-       
-        session.getTransaction().commit();
-		}catch (Exception e) {
-			todoOK=false;
+
+		try {
+			session.beginTransaction();
+
+			for (String key : recogerAlumnos.keySet()) {
+				session.delete(recogerAlumnos.get(key));
+			}
+			recogerAlumnos.clear();
+
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			todoOK = false;
 		}
 		return todoOK;
 	}
@@ -111,14 +111,14 @@ public AccesoHibernate() {
 		} catch (Exception e) {
 			todoOK = false;
 		}
-		
+
 		return todoOK;
 	}
 
 	@Override
 	public boolean insertarTodosAlumnos(HashMap<String, Alumno> mapAlumno) {
 		boolean todoOK = true;
-		for(String key:mapAlumno.keySet()){
+		for (String key : mapAlumno.keySet()) {
 			todoOK = this.insertarAlumno(mapAlumno.get(key));
 		}
 		return todoOK;
@@ -126,18 +126,17 @@ public AccesoHibernate() {
 
 	@Override
 	public HashMap<String, Titulacion> obtenerTitulacion() {
-		recogerTitulaciones = new HashMap<String, Titulacion>();
-		Query q= session.createQuery("select dep from Titulacion dep");
-        List results = q.list();
-        
-        Iterator titulacionesIterator= results.iterator();
+		//recogerTitulaciones = new HashMap<String, Titulacion>();
+		Query q = session.createQuery("select dep from Titulacion dep");
+		List results = q.list();
 
-        while (titulacionesIterator.hasNext()){
-        	Titulacion titulacion = (Titulacion)titulacionesIterator.next();
-        	recogerTitulaciones.put(titulacion.getNombre().toUpperCase(), titulacion);
-        }
+		Iterator titulacionesIterator = results.iterator();
 
-    	
+		while (titulacionesIterator.hasNext()) {
+			Titulacion titulacion = (Titulacion) titulacionesIterator.next();
+			recogerTitulaciones.put(titulacion.getNombre().toUpperCase(), titulacion);
+		}
+
 		return recogerTitulaciones;
 	}
 
@@ -152,14 +151,14 @@ public AccesoHibernate() {
 		} catch (Exception e) {
 			todoOK = false;
 		}
-		
+
 		return todoOK;
 	}
 
 	@Override
 	public boolean insertarTodosTitulaciones(HashMap<String, Titulacion> mapTitulacion) {
 		boolean todoOK = true;
-		for(String key:mapTitulacion.keySet()){
+		for (String key : mapTitulacion.keySet()) {
 			todoOK = this.insertarTitulacion(mapTitulacion.get(key));
 		}
 		return todoOK;

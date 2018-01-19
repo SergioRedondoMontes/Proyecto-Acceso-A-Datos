@@ -120,10 +120,10 @@ public class FicheroTexto implements I_Acceso_Datos {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		for (String key : mapAlumno.keySet()) {
-			todoOK = this.insertarAlumno(mapAlumno.get(key));
-		}
+//		
+//		for (String key : mapAlumno.keySet()) {
+//			todoOK = this.insertarAlumno(mapAlumno.get(key));
+//		}
 		return todoOK;
 	}
 

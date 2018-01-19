@@ -140,9 +140,9 @@ public class Controlador {
 		if (accesoExportar!=null) {
 			System.out.println("claseExportar: " + vistaP.getCbExportar());
 			//accesoDatos.insertarTodosTitulaciones(recogerTitulaciones);
-			System.out.println(accesoDatos.insertarTodosTitulaciones(recogerTitulaciones));
+			System.out.println(accesoExportar.insertarTodosTitulaciones(recogerTitulaciones));
 			//accesoDatos.insertarTodosAlumnos(recogerAlumnos);
-			System.out.println(accesoDatos.insertarTodosAlumnos(recogerAlumnos));
+			System.out.println(accesoExportar.insertarTodosAlumnos(recogerAlumnos));
 			
 		}
 	}

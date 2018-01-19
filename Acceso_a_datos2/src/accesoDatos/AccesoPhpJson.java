@@ -21,6 +21,8 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 	HashMap<String, Titulacion> recogerTitulaciones;
 	
 	public AccesoPhpJson(){
+		recogerAlumnos = new HashMap<String, Alumno>();
+		recogerTitulaciones = new HashMap<String, Titulacion>();
 		
 		encargadoPeticiones = new ApiRequests();
 		
@@ -34,7 +36,7 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 	public HashMap<String, Alumno> obtenerAlumno() {
 		
 		obtenerTitulacion();
-		recogerAlumnos = new HashMap<String, Alumno>();
+		//recogerAlumnos = new HashMap<String, Alumno>();
 		GET = "leerAlumnos.php";
 		
 		try{
@@ -301,14 +303,18 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 
 	@Override
 	public boolean insertarTodosAlumnos(HashMap<String, Alumno> mapAlumno) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean todoOK = true;
+		for (String key : mapAlumno.keySet()) {
+			todoOK = this.insertarAlumno(mapAlumno.get(key));
+		}
+		
+		return todoOK;
 	}
 
 	@Override
 	public HashMap<String, Titulacion> obtenerTitulacion() {
 		GET = "leerTitulaciones.php";
-		recogerTitulaciones = new HashMap<String, Titulacion>();
+		//recogerTitulaciones = new HashMap<String, Titulacion>();
 		
 		try{
 			
@@ -410,7 +416,11 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 	@Override
 	public boolean insertarTodosTitulaciones(HashMap<String, Titulacion> mapTitulacion) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean todoOK = true;
+		for(String key:mapTitulacion.keySet()){
+			todoOK = this.insertarTitulacion(mapTitulacion.get(key));
+		}
+		return todoOK;
 	}
 	
 }
