@@ -1,8 +1,14 @@
 package entidades;
+
+import java.util.ArrayList;
+
+import org.bson.Document;
+
 public class Titulacion {
 	private int cod;
 	private String nombre;
 	private String descripcion;
+	private ArrayList<Document> arrayAlumnos;
 
 	public Titulacion(){}
 	
@@ -12,6 +18,13 @@ public class Titulacion {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 	}
+	public Titulacion(String nombre,String descripcion,ArrayList<Document> arrayAlumnos) {
+		super();
+		
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.arrayAlumnos = arrayAlumnos;
+	}
 
 	public Titulacion( String nombre,String descripcion) {
 		super();
@@ -19,6 +32,8 @@ public class Titulacion {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 	}
+	
+
 	public int getCod() {
 		return cod;
 	}
@@ -41,6 +56,10 @@ public class Titulacion {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public ArrayList<Document> getArrayAlumnos() {
+		return arrayAlumnos;
 	}
 
 	

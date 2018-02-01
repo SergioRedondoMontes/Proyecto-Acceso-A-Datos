@@ -515,6 +515,7 @@ public class VistaPrincipal extends JFrame {
 			
 			Alumno alumnoAux = recogerAlumnos.get(key);
 			Titulacion titulacionAux = alumnoAux.getTitulacionAlumno();
+			
 			String nombreAux = titulacionAux.getNombre();
 			
 			model.addRow(new String[] { String.valueOf(recogerAlumnos.get(key).getCod()),
