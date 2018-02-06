@@ -11,7 +11,6 @@
 	<classpathentry kind="lib" path="lib/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/jandex-2.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/javassist-3.18.1-GA.jar"/>
-	<classpathentry kind="lib" path="lib/jboss-logging-3.3.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/json_simple-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/okhttp-2.6.0.jar"/>
 	<classpathentry kind="lib" path="lib/okio-1.6.0.jar"/>
@@ -24,5 +23,6 @@
 	<classpathentry kind="lib" path="lib/mongo/mongodb-driver-core-3.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/mongo/morphia-1.2.1-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/mongo/morphia-1.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-logging-3.3.0.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
