@@ -5,7 +5,7 @@
 $servername = "localhost";
 $user = "root";
 $password = "";
-$dbname = "alumnos_adat";
+$dbname = "alumnos_adat_php";
 $conn  =  new  mysqli($servername,  $user,$password, $dbname);
 // Check connection
 if ($conn->connect_error) {

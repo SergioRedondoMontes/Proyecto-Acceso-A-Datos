@@ -125,7 +125,7 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 										// incorrecto porque hay alg˙n caracter
 										// raro, etc.) la respuesta ser· null
 				System.out.println("El json recibido no es correcto. Finaliza la ejecuciÛn");
-				System.exit(-1);
+				//System.exit(-1);
 			} else { // El JSON recibido es correcto
 
 				// Sera "ok" si todo ha ido bien o "error" si hay alg˙n problema
@@ -141,7 +141,7 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 					System.out.println("Error: " + (String) respuesta.get("error"));
 					System.out.println("Consulta: " + (String) respuesta.get("query"));
 
-					System.exit(-1);
+					//System.exit(-1);
 
 				}
 			}
@@ -190,7 +190,7 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 										// incorrecto porque hay alg˙n caracter
 										// raro, etc.) la respuesta ser· null
 				System.out.println("El json recibido no es correcto. Finaliza la ejecuciÛn");
-				System.exit(-1);
+				//System.exit(-1);
 			} else { // El JSON recibido es correcto
 
 				// Sera "ok" si todo ha ido bien o "error" si hay alg˙n problema
@@ -206,7 +206,7 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 					System.out.println("Error: " + (String) respuesta.get("error"));
 					System.out.println("Consulta: " + (String) respuesta.get("query"));
 
-					System.exit(-1);
+					//System.exit(-1);
 
 				}
 			}
@@ -304,6 +304,7 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 	@Override
 	public boolean insertarTodosAlumnos(HashMap<String, Alumno> mapAlumno) {
 		boolean todoOK = true;
+		borrarTodoAlumnos();
 		for (String key : mapAlumno.keySet()) {
 			todoOK = this.insertarAlumno(mapAlumno.get(key));
 		}
@@ -387,7 +388,7 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 										// incorrecto porque hay alg˙n caracter
 										// raro, etc.) la respuesta ser· null
 				System.out.println("El json recibido no es correcto. Finaliza la ejecuciÛn");
-				System.exit(-1);
+				//System.exit(-1);
 			} else { // El JSON recibido es correcto
 
 				// Sera "ok" si todo ha ido bien o "error" si hay alg˙n problema
@@ -403,7 +404,7 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 					System.out.println("Error: " + (String) respuesta.get("error"));
 					System.out.println("Consulta: " + (String) respuesta.get("query"));
 
-					System.exit(-1);
+					//System.exit(-1);
 
 				}
 			}
@@ -418,7 +419,71 @@ public class AccesoPhpJson implements I_Acceso_Datos{
 		// TODO Auto-generated method stub
 		boolean todoOK = true;
 		for(String key:mapTitulacion.keySet()){
-			todoOK = this.insertarTitulacion(mapTitulacion.get(key));
+			//todoOK = this.insertarTitulacion(mapTitulacion.get(key));
+			SET_insert_TITULACION = "escribirTodoTitulacion.php";
+			JSONObject objTitulacion = new JSONObject();
+			JSONObject objPeticion = new JSONObject();
+			try {
+				recogerTitulaciones.put(key, mapTitulacion.get(key));
+				
+				objTitulacion.put("cod", mapTitulacion.get(key).getCod());
+				System.out.println("-----------"+mapTitulacion.get(key).getCod());
+				objTitulacion.put("nombre", mapTitulacion.get(key).getNombre());
+				objTitulacion.put("descripcion", mapTitulacion.get(key).getDescripcion());
+				
+				
+				
+				objPeticion.put("peticion", "add");
+				objPeticion.put("titulacionAdd", objTitulacion);
+				String json = objPeticion.toJSONString();
+				
+				System.out.println("Lanzamos peticion JSON para almacenar un jugador");
+
+				String url = SERVER_PATH + SET_insert_TITULACION;
+
+				System.out.println("La url a la que lanzamos la peticiÛn es " + url);
+				System.out.println("El json que enviamos es: ");
+				System.out.println(json);
+				// System.exit(-1);
+
+				String response = encargadoPeticiones.postRequest(url, json);
+
+				System.out.println("El json que recibimos es: ");
+
+				System.out.println(response); // Traza para pruebas
+				//System.exit(-1);
+
+				// Parseamos la respuesta y la convertimos en un JSONObject
+
+				JSONObject respuesta = (JSONObject) JSONValue.parse(response.toString());
+
+				if (respuesta == null) { // Si hay alg˙n error de parseo (json
+											// incorrecto porque hay alg˙n caracter
+											// raro, etc.) la respuesta ser· null
+					System.out.println("El json recibido no es correcto. Finaliza la ejecuciÛn");
+					//System.exit(-1);
+				} else { // El JSON recibido es correcto
+
+					// Sera "ok" si todo ha ido bien o "error" si hay alg˙n problema
+					String estado = (String) respuesta.get("estado");
+					if (estado.equals("ok")) {
+
+						System.out.println("Almacenado jugador enviado por JSON Remoto");
+
+					} else { // Hemos recibido el json pero en el estado se nos
+								// indica que ha habido alg˙n error
+
+						System.out.println("Acceso JSON REMOTO - Error al almacenar los datos");
+						System.out.println("Error: " + (String) respuesta.get("error"));
+						System.out.println("Consulta: " + (String) respuesta.get("query"));
+
+						//System.exit(-1);
+
+					}
+				}
+			}catch (Exception e) {
+					// TODO: handle exception
+				}
 		}
 		return todoOK;
 	}
