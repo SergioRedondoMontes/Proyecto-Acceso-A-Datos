@@ -155,14 +155,20 @@ public class AccesoMongo implements I_Acceso_Datos {
 			filtro.put("alumnos.dni", dni);
 			System.out.println(filtro);
 			
+			Document deleteAl = new Document();
+			deleteAl.put("dni", dni);
 			Document delete = new Document();
-			delete.put("dni", dni);
+			delete.put("alumnos", deleteAl);
+			
+			
 			
 			Document update = new Document();
 			update.put("$pull", delete);
 			
+			
 			System.out.println(update);
 			collection.updateOne(filtro,update);
+			recogerAlumnos.remove(dni);
 
 		} catch (Exception e) {
 			todoOK = false;
