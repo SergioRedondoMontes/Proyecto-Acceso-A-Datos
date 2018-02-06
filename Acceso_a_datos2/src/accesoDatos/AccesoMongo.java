@@ -153,7 +153,7 @@ public class AccesoMongo implements I_Acceso_Datos {
 			Document filtro = new Document();
 			filtro.put("titulacion", titulacion);
 			filtro.put("alumnos.dni", dni);
-			System.out.println(filtro);
+			//System.out.println(filtro);
 			
 			Document deleteAl = new Document();
 			deleteAl.put("dni", dni);
@@ -166,7 +166,7 @@ public class AccesoMongo implements I_Acceso_Datos {
 			update.put("$pull", delete);
 			
 			
-			System.out.println(update);
+			//System.out.println(update);
 			collection.updateOne(filtro,update);
 			recogerAlumnos.remove(dni);
 
@@ -178,41 +178,27 @@ public class AccesoMongo implements I_Acceso_Datos {
 
 		return todoOK;
 		
-		/*
+	}
+
+	@Override
+	public boolean borrarTodoAlumnos() {
 		boolean todoOK = true;
-
+		collection = db.getCollection("titulaciones");
+		collection.drop();
 		try {
-
-			collection = db.getCollection("titulaciones");
-			String titulacion = recogerAlumnos.get(dni).getTitulacionAlumno().getNombre();
-			ArrayList<Document> prueba = new ArrayList<Document>(recogerTitulaciones.get(titulacion).getArrayAlumnos());
+			for (String key : recogerTitulaciones.keySet()) {
+				collection.insertOne(titulacionToDocument(recogerTitulaciones.get(key)));
+			}
 			
-			
-			Document filtro = new Document();
-			filtro.put("titulacion", titulacion);
-			filtro.put("alumnos.dni", dni);
-
-			Document update = new Document();
-			update.put("$pull", filtro);
-			System.out.println(update);
-			collection.updateOne(prueba,update);
-
-			recogerAlumnos.remove(dni);
+			recogerAlumnos.clear();;
 
 		} catch (Exception e) {
 			todoOK = false;
 			System.out.println("Opcion guardar datos de Depositos no disponible por el momento");
 			e.printStackTrace();
 		}
-
+		
 		return todoOK;
-		*/
-	}
-
-	@Override
-	public boolean borrarTodoAlumnos() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -253,8 +239,13 @@ public class AccesoMongo implements I_Acceso_Datos {
 
 	@Override
 	public boolean insertarTodosAlumnos(HashMap<String, Alumno> mapAlumno) {
-		// TODO Auto-generated method stub
-		return false;
+		Boolean todoOk = true;
+		for (String dni : mapAlumno.keySet()) {
+			todoOk = insertarAlumno(mapAlumno.get(dni));
+			recogerAlumnos.put(dni, mapAlumno.get(dni));
+		}
+		
+		return todoOk;
 	}
 
 	@Override
@@ -330,8 +321,15 @@ public class AccesoMongo implements I_Acceso_Datos {
 
 	@Override
 	public boolean insertarTodosTitulaciones(HashMap<String, Titulacion> mapTitulacion) {
-		// TODO Auto-generated method stub
-		return false;
+		Boolean todoOk = true;
+		collection = db.getCollection("titulaciones");
+		collection.drop();
+		for (String nombre : mapTitulacion.keySet()) {
+			todoOk = insertarTitulacion(mapTitulacion.get(nombre));
+			recogerTitulaciones.put(nombre, mapTitulacion.get(nombre));
+		}
+		
+		return todoOk;
 	}
 
 	/*
